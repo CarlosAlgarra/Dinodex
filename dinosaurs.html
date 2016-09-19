@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>DinoDex Profile</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="profile.css" />
+
+<script src="taffydb-master/taffy.js"></script>
+<script>
+		var dinos = TAFFY([
+			{name:"Tyrannosaurus Rex", id:001, diet:"carnivore", description:"The baddest."  },
+			{name:"Brontosaurus", id:002, diet:"herbivore", description:"The largest"   },
+			{name:"Corythosaurus", id:003, diet:"herbivore", description:"The one with the mohawk."   },
+		    {name:"Triceratops", id:004, diet:"herbivore", description:"The rhino like one."   },
+			{name:"Velociraptor", id:005, diet:"carnivore", description:"The scary fast one."   }
+		]);
+</script>
+<script>
+		function nextOne()
+           {
+             var button = document.getElementById( "next" );
+              button.addEventListener("click", oneMoreHelper, false );
+			  button.addEventListener("click", updateBoxes, false );
+           } 
+		   
+		   function oneMoreHelper(){
+				var countBox = document.getElementById("count");
+				countBox.value = (countBox.value*1) + (1);
+		   }
+		   
+		   function backOne()
+           {
+             var button = document.getElementById( "back" );
+              button.addEventListener("click", oneLessHelper, false );
+			  button.addEventListener("click", updateBoxes, false );
+			  
+           } 
+		   
+		   function oneLessHelper(){
+				var countBox = document.getElementById("count");
+				if(countBox.value > 0)
+					countBox.value -= 1;
+		   }
+
+           function updateBoxes()
+          {  var nameBox = document.getElementById( "name" );
+		     var dietBox = document.getElementById( "diet" );
+		     var descBox = document.getElementById( "desc" );
+			 var e = document.getElementById("count");
+			 var selection;
+			  
+			  if (e.value == 1){
+				selection = 001;
+			  }
+			  else if(e.value == 2){
+				selection = 002;
+			  }
+			  else if(e.value == 3){
+				selection = 004;
+			  }
+			    else if(e.value == 4){
+				selection = 005;
+			  }
+				var selectedDinoName = dinos({id:selection}).select("name");
+				var selectedDinoDiet = dinos({id:selection}).select("diet");
+				var selectedDinoDesc = dinos({id:selection}).select("description");
+				nameBox.value = selectedDinoName;
+				dietBox.value = selectedDinoDiet;
+				descBox.value  = selectedDinoDesc;
+           } 
+
+         
+
+           window.addEventListener( "load", nextOne, false );
+		   window.addEventListener( "load", backOne, false );
+		</script>
+
+
+
+</head>
+<body>
+<div class="jumbotron text-center">
+	<h1 class="heading">Dinosaurs!</h1>
+</div>
+
+<nav class="navbar navbar-default">
+	<div id="nav" class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">DinoDex</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li ><a href="#">Home</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="dinosaurs.html">Dinosaurs</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span>View Profile</a></li>
+			<li><a href="Start_Menu.html"><span class="glyphicon glyphicon-remove"></span>Sign Out</a></li>
+	</div>
+			
+</nav>
+
+<div class="form-group">
+	<form>
+		<div>
+			<button id="back" type="button" class="btn btn-default btn-md"><</button>
+			<input type="number" class="form-control" id="count" size="3" maxlength="3" width="4" value = 1>
+			<button id="next" type="button" class="btn btn-default btn-md">></button>
+		</div>
+		
+		
+		</div>
+		<div class="form-group">
+			<label for="name">Dinosaur Name:</label>
+			<input type="text" class="form-control" id="name">
+		</div>
+		<div class="form-group">
+			<label for="diet">Diet:</label>
+			<input type="text" class="form-control" id="diet">
+		</div>
+		<div class="form-group">
+			<label for="desc">Description:</label>
+			<input type="text" class="form-control" id="desc">
+		</div>
+	</form>
+</div>
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+<script src="profile.js"></script>
+<script>updateBoxes();</script>
+
+</body>
+</html>
