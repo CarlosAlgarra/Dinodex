@@ -1,0 +1,13 @@
+h1{
+	font-family:"Comic Sans MS", cursive, sans-serif;
+	text-align: center;
+}
+
+#nav{
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#mapid{
+	display: block;
+    margin: 0 auto;
+}
