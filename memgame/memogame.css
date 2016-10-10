@@ -1,0 +1,37 @@
+body, html{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	
+	margin: 0; padding: 0; border: 0;
+}
+
+
+#game_table {
+	margin: 1px auto;
+}
+
+#game_table div {
+	border: 5px solid #07c;
+	width: 300px;
+	height: 300px;
+	cursor: pointer;
+}
+
+#game_table div:hover {
+	background-color: #ddd;
+}
+
+#settings{
+	text-align: center;
+}
+
+.showingCard{
+	background-color: #ccc;
+}
+
+.pairFound{
+	background-color: #ff0;
+}
+#timer, #num_clicks {
+	font-weight: bold;
+}
+
