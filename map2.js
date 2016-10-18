@@ -28,10 +28,18 @@ var markerarr=[
 var marker=L.marker([26.305892349824866,-98.17293477943724]).addTo(mymap);
 
 marker.on("click",function(){
-	window.open("mapexample.html");
+	window.open("Spelling_Game/Spell_Game.html");
 });
-marker.bindPopup("I'm a popup");
+marker.bindPopup("??");
 marker.openPopup();
+
+var marker2=L.marker([26.309892349824866,-98.17293477943724]).addTo(mymap);
+
+marker2.on("click",function(){
+	window.open("views/memgame.ejs");
+});
+marker2.bindPopup("???????");
+marker2.openPopup();
 
 
 mymap.on('zoomend',onZoomend);
