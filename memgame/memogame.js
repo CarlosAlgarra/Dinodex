@@ -1,11 +1,11 @@
 function getAllImages(){
 	baseArray = Array();
-	baseArray.push("greenface.jpg");
-	baseArray.push("redface.jpg");
-	baseArray.push("yellowface.jpg");
-	baseArray.push("blueface.jpg");
-	baseArray.push("purpleface.jpg");
-	baseArray.push("pinkface.jpg");
+	baseArray.push("/memgame/greenface.jpg");
+	baseArray.push("/memgame/redface.jpg");
+	baseArray.push("/memgame/yellowface.jpg");
+	baseArray.push("/memgame/blueface.jpg");
+	baseArray.push("/memgame/purpleface.jpg");
+	baseArray.push("/memgame/pinkface.jpg");
 	shuffleArray( baseArray );
 	return baseArray;
 }
@@ -149,5 +149,6 @@ $(function(){
 	game.createTable(4,3);
 	
 	$('#game_table tbody').data('gameobject', game);
+	
 });
 

@@ -4,7 +4,9 @@ body, html{
 	margin: 0; padding: 0; border: 0;
 }
 
-
+#game2{
+	display:none;
+}
 #game_table {
 	margin: 1px auto;
 }
