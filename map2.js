@@ -1,7 +1,45 @@
+/* var mongodb = require ('mongodb');
+
+const MongoClient = require('mongodb').MongoClient;
+
+var url = 'http://127.0.0.1:2817/dinodex/dinos/';
+
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    //HURRAY!! We are connected. :)
+    console.log('Connection established to', url);
+
+    // Get the documents collection
+    var collection = db.collection('dinos');
+	
+	collection.find({diet: 'carnivore'}).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+      } else if (result.length) {
+        console.log('Found:', result);
+      } else {
+        console.log('No document(s) found with defined "find" criteria!');
+      }
+      //Close connection
+      db.close();
+    });
+  }
+}); */
+
+
+
+
+var $test =$('.test').attr('data-test-value');
+console.log($test);
+
 var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg","Triceratops"],
              ["http://orig03.deviantart.net/f652/f/2014/331/5/7/jurassic_world__tyrannosaurus_rex_by_sonichedgehog2-d87wp3n.png","Tyranosaurus Rex"],
              ["http://kindersay.com/files/images/dinosaur.png","Brontosaurus"]
+			 
            ]
+var coords=new Array();
 var mymap=L.map('mapid').setView([26.305892349824866,-98.17293477943724],13);
 
 
@@ -100,6 +138,32 @@ function onZoomend(){
 		
 	}
 }
+ $.getScript('server.js', function(){
+	console.log("hi");
+
+   	for(var i=0; i<dinos.length; i++) {
+		for(var x=0;x<dinos[i].coord.length;x++){
+			coor=dinos[i].coord[x];
+			lat=coor[0];
+			log=coor[1];
+			console.log(lat);
+			console.log(log);
+		}
+	}
+
+}); 
+
+/* (function(){
+	 for(var i=0; i<dinos.length; i++) {
+		 for(var x=0;x<dinos[i].coord.length;x++){
+			coor=dinos[i].coord[x];
+			lat=coor[0];
+			log=coor[1];
+			console.log(lat);
+			console.log(log);
+		 }
+     
+	}} )(); */
 
 
 
