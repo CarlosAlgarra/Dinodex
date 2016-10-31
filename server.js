@@ -23,4 +23,5 @@ app.get('/', (req, res) => {
 /* load("map2.js"); */
 app.use(express.static(__dirname));
 app.use(express.static("map2.js"));
+app.use(express.static("marker_class.js"));
 
