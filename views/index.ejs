@@ -97,32 +97,10 @@
 		</div>
 				
 	</nav>
-	
-<!-- 	Game #1 Spelling Game -->
-	<div class="form-group" style="hidden" id="game">
-		<img id="dino" src="" height="500" width="500">
-		<p >You have 5 seconds to type this: <span id="dinotext"><p>
-		<input type="text" class="form-control" id="answer" >
-	</div>
-<!-- 	Game #2 Memory Game -->
-	<div id="game2" style="hidden">
-		<center>
-			<tr> Sample memory game</tr>
-		</center>
-		<center>
-			<table id="game_table">
-				<tbody>
-					<tr><td align="center">JS is not enabled.</td></tr>
-				</tbody>
-			</table>
-		</center>
-	</div>
-	
+
 	
 <!-- Map creation -->
 	<div id="mapid" class="mapclass" style="width: 800px; height: 800px; hidden"></div>
-
-
 
 <!-- <script src="map2.js"> -->
 
@@ -279,7 +257,7 @@ console.log(dinos.length);
 	marker3.openPopup();
 	
 
-	mymap.on("click",function(){
+/*	mymap.on("click",function(){
 		var x=Math.floor(Math.random() * 3) + 1;
 		if(x==1){
 			document.getElementById("dino").src=imgs[0][0]
@@ -303,7 +281,7 @@ console.log(dinos.length);
 		var myVar=setTimeout(myFunction,5000);
 
 		
-	});
+	});*/
 	
 </script>
 
