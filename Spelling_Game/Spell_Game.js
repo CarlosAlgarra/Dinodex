@@ -1,3 +1,5 @@
+
+var score=0;
 var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg","Triceratops"],
              ["http://orig03.deviantart.net/f652/f/2014/331/5/7/jurassic_world__tyrannosaurus_rex_by_sonichedgehog2-d87wp3n.png","Tyranosaurus Rex"],
              ["http://kindersay.com/files/images/dinosaur.png","Brontosaurus"]
@@ -5,7 +7,7 @@ var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg"
 		   
 
 
-$("#butt").click(function(){
+function random(){
 	var x=Math.floor(Math.random() * 3) + 1;
 	if(x==1){
 		document.getElementById("dino").src=imgs[0][0]
@@ -22,30 +24,46 @@ $("#butt").click(function(){
 		document.getElementById("dinotext").innerHTML=imgs[2][1]
 		
 	}
-	console.log()
+	/* console.log() */
 	$("#game").show();
 	
 	
-})
+}
+
+$("#butt").onclick(function(){
+	random();
+	
+});
+
 
 $("#answer").click(function(){
 	var myVar=setTimeout(myFunction,5000);
-	/* clearTimeout(myVar); */
-
+	/* clearTimeout(myVar);  */
+	});
 	
-})
-
 function myFunction(){
 	var val=document.getElementById("answer").value;
 	var val2=$("#dinotext").text();
 	if(val==val2){
-		alert("you are right");
+		score=score+100;
 		
 	}
 	else{
-		alert("you are wrong");
+		score=score-50;
 	}
 	document.getElementById("answer").value="";
 
 
 }
+
+function main_game(){
+	var n=0;
+	random();
+	$("#butt").onclick(function(){
+		random();
+		n=n+1;
+	
+	});
+
+	console.log(score);
+} main_game();

@@ -130,8 +130,6 @@
 </script>
 
 
-<script src="/memgame/memogame.js"></script>
-
 
 <!-- dummy register and login -->
 <div>
@@ -159,6 +157,10 @@
 <button type ="submit">login</button>
 </form>
 </div>
+
+
+
+
 
 
 <script>
@@ -196,26 +198,47 @@ console.log(dinos.length);
 <table id="topscores" style="width:100%">
 </table>
 
-
 <%
 	<!-- var mymap=L.map('mapid').setView([26.305892349824866,-98.17293477943724],13); -->
 	coords=new Array();
+	id_name=new Array();
+	din=dinos;
+	console.log(dinos);
+	var ids;
+	var name;
 	 for(var i=0; i<dinos.length; i++) {
+			ids=dinos[i].idn;
+			name=dinos[i].name;
+			id_name.push(ids,name);
+			<!-- var n=id_name[0]; -->
+			<!-- var d=id_name[1]; -->
+			<!-- console.log(n); -->
+			<!-- console.log(d); -->
 		 for(var x=0;x<dinos[i].coord.length;x++){
 			coor=dinos[i].coord[x];
 			coords.push(coor);
-			lat=coor[0];
-			log=coor[1];
-			console.log(lat);
-			console.log(log);
+			<!-- lat=coor[0]; -->
+			<!-- log=coor[1]; -->
+			<!-- console.log(lat); -->
+			<!-- console.log(log); -->
 			<!-- var marker2=L.marker([lat,log]).addTo(mymap); -->
 		 }
      
 	}	
 %>
 
+<script src="marker_class.js">
+
+
+</script>
+
+
+<script src="/memgame/memogame.js"></script>
+
 <script>
 
+
+	
 
 	var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg","Triceratops"],
 				 ["http://orig03.deviantart.net/f652/f/2014/331/5/7/jurassic_world__tyrannosaurus_rex_by_sonichedgehog2-d87wp3n.png","Tyranosaurus Rex"],
@@ -234,42 +257,29 @@ console.log(dinos.length);
 		id: 'mapbox.streets'
 	}).addTo(mymap);
 
-
-	var markerarr=[
-		[26.305892349824866,-98.17293477943724,"Edinburg, TX"],
-		[26.2159066,-98.32529319999998,"Mission, TX"],
-		[26.2034071,-98.23001239999996,"McAllen, TX"]
-	];
-	
-	for(i=0;i<markerarr.length;i++){
-		lat=markerarr[i][0];
-		lon=markerarr[i][1];
-		popupText=markerarr[i][2];
-		var marker=L.marker([lat,lon]).addTo(mymap);
-		/*marker.bindPopup(popupText);
-		marker.openPopup();*/
-	} 
 	var test= <%-JSON.stringify(coords)%>;
+	var dino_db=<%-JSON.stringify(din)%>;
+	var marker_arr=new Array();
+	console.log("test: "+dino_db[0].idn);
 	console.log("test: "+test);
 	console.log(test.length);
-	for(var i=0;i<test.length;i++){
-		lats=test[i][0];
-		lon=test[i][1];
-		console.log(lats);
-		console.log(lon);
-		marker=L.marker([lats,lon]).addTo(mymap);
-		/*marker.openPopup();*/
-		
-		
+	var name;
+	for(var i=0;i<dino_db.length;i++){
+		for(var x=0;x<dino_db[i].coord.length;x++){
+			var cord=dino_db[i].coord[x];
+			marker=L.marker([cord[0],cord[1]]).addTo(mymap);
+			marker.bindPopup(dino_db[i].name+ "<br><a href='random.html'>Access this Dinosaur now!!</a>");
+			marker.openPopup();
+			marker_arr.push(marker);
+		}
 	}
 	var lats=test[1][0];
 	var lon=test[1][1];
 	var marker3=L.marker([lats,lon]).addTo(mymap);
 	marker3.openPopup();
-	/*var marker=L.marker([26.305892349824866,-98.17293477943724]).addTo(mymap);*/
 	
 
-	/*marker.on("click",function(){
+	mymap.on("click",function(){
 		var x=Math.floor(Math.random() * 3) + 1;
 		if(x==1){
 			document.getElementById("dino").src=imgs[0][0]
@@ -294,50 +304,7 @@ console.log(dinos.length);
 
 		
 	});
-
-
-	function myFunction(){
-		var val=document.getElementById("answer").value;
-		var val2=$("#dinotext").text();
-		if(val==val2){
-			alert("you are right");
-			
-		}
-		else{
-			alert("you are wrong");
-			
-		}
-		$("#game").hide();
-		document.getElementById("answer").value="";
-
-
-	}
-
-
-	marker.bindPopup("??");
-	marker.openPopup();
-
-	var marker2=L.marker([26.309892349824866,-98.17293477943724]).addTo(mymap);
-
-	marker2.on("click",function(){
-		$("#game2").show();
-		
-	});
-	marker2.bindPopup("???????");
-	marker2.openPopup();
-
-
-	mymap.on('zoomend',onZoomend);
-	function onZoomend(){
-		if (mymap.getZoom()>=10){
-			mymap.addLayer(marker2);
-		}
-		else{
-			mymap.removeLayer(marker2);
-			
-		}
-	}
-	*/
+	
 </script>
 
 
