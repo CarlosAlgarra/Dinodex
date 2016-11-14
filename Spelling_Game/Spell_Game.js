@@ -5,7 +5,7 @@ var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg"
              ["http://kindersay.com/files/images/dinosaur.png","Brontosaurus"]
            ]
 		   
-
+ random();
 
 function random(){
 	var x=Math.floor(Math.random() * 3) + 1;
@@ -24,21 +24,12 @@ function random(){
 		document.getElementById("dinotext").innerHTML=imgs[2][1]
 		
 	}
-	/* console.log() */
-	$("#game").show();
 	
 	
 }
 
-$("#butt").onclick(function(){
-	random();
-	
-});
-
-
 $("#answer").click(function(){
 	var myVar=setTimeout(myFunction,5000);
-	/* clearTimeout(myVar);  */
 	});
 	
 function myFunction(){
@@ -46,24 +37,14 @@ function myFunction(){
 	var val2=$("#dinotext").text();
 	if(val==val2){
 		score=score+100;
+		alert("you won! the answer was" + val2 + "the score is " + score);
 		
 	}
 	else{
 		score=score-50;
+		alert("Boo you lost! your total score was " + score );
 	}
 	document.getElementById("answer").value="";
 
 
 }
-
-function main_game(){
-	var n=0;
-	random();
-	$("#butt").onclick(function(){
-		random();
-		n=n+1;
-	
-	});
-
-	console.log(score);
-} main_game();
