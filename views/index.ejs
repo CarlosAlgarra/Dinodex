@@ -63,13 +63,22 @@
 			background-color: #ccc;
 		}
 		.createaccount{
+		}
+		.loginer{
+		}
+		.loginstatus{
+		}
+		.mapinstructions{
 			display: none;
 		}
-		
-		.mapclass{
+		.profile{
 			display: none;
+		}
+		.mapclass{
+		
 			width: 800px; 
 			height: 800px;
+			display: none;
 		}
 
 		.pairFound{
@@ -79,10 +88,17 @@
 			font-weight: bold;
 		}
 	</style>
+	
+	<script>
+	$('.mapclass').hide();
+
+	</script>
+
 </head>
 <body>
 	<div class="jumbotron">
 		<h1>DinoDex</h1>
+		<p align="right" style="hidden" class="loginstatus" id="loginstatus">Please Login</p>
 	</div>
 	<nav class="navbar navbar-default">
 		<div id="nav" class="container-fluid">
@@ -100,19 +116,47 @@
 		</div>
 				
 	</nav>
-
 	
-<!-- Map creation -->
-	<div id="mapid" class="mapclass" style="hidden"></div>
+	<div align ="right">
+	<button align ="right" onclick="showProfile()">Profile</button>
+	</div>
+	<script>
+function showProfile(){
 
-<!-- <script src="map2.js"> -->
+			var currUser = document.getElementById("loginstatus").innerHTML;
+			var dinoArray;
+			//alert(currUser)
+			
+    $.getJSON("/usersinfo", function(data, status){
+        //alert(data[1].userid + data[1].password);
+		//alert(data[0].userid +"  "+data[0].userpassword )
+		if(currUser != "Please Login"){
+			for(var i = 0; i<data.length; i++){
+				if(data[i].userid == currUser){
+					dinoArray = data[i].trophies;
+				}
+			}
+		}
+		else alert('Please login first!')
+		
+		$.getJSON("/dinosinfo", function(data, status){
+		
+			for(var i = 0; i < dinoArray; i++){
+				var tempString = dinoArray[i];
+				
+				tempString.innerHTML = ;
+				//FINISHUP
+				
+			}
+		}
 
-
+    });
+}
 </script>
-
-
-
-<!-- dummy register and login -->
+	
+	<!-- dummy register and login -->
+	
+<!--
 <div>
 <form action="/update" method="POST">
 <input type="text" placeholder="userid" name="userid">
@@ -120,36 +164,63 @@
 <button type ="submit">SUBMIT</button>
 </form>
 </div>
+-->
+
+<div class = "loginer" style="hidden">
+<p>Login</p>
+<form action="/login" method="POST" style = "hidden">
+<input type="text" placeholder="userid" name="userid" id="usid">
+<input type="text" placeholder="password" name="password" id="uspwd">
+<button type ="submit" onclick="logging()">Login</button>
+</form>
+</div>
 
 <div class = "createaccount" style="hidden">
+<p>Or register a new account.</p>
 <form action="/signup" method="POST">
 <input type="text" placeholder="userid" name="userid">
-<input type="text" placeholder="password" name="password">
+<input type="text" placeholder="password2" name="password1">
 <input type="text" placeholder="re-type password" name="password2">
-<button type ="submit">CREATE</button>
-
+<button type ="submit" >Create Account</button>
 </form>
 </div>
-
-
-<form action="/login" method="POST">
-<input type="text" placeholder="userid" name="userid">
-<input type="text" placeholder="password" name="password">
-<button type ="submit">login</button>
-</form>
-</div>
-
-
-
-
-
-
 <script>
-<!-- ASSIGN NEW HI SCORE TO CURRENT USER -->
+function logging(){
+	var id = document.getElementById("usid").value
+	var pass = document.getElementById("uspwd").value
+	var checkBool
+    $.getJSON("/usersinfo", function(data, status){
+        //alert(data[1].userid + data[1].password);
+		//alert(data[0].userid +"  "+data[0].userpassword )
+		for(var i = 0; i<data.length; i++){
+			if(data[i].userid == id && data[i].userpassword == pass){
+				checkBool = true
+				break
+			}
+			checkBool = false
+		}
+		if (checkBool == true){
+				$(".loginer").hide();
+				$(".createaccount").hide();
+				$(".mapinstructions").show();
+				loginstatus.innerHTML = id;
+				alert("Successful Login");}
+		else{
+			alert("nope")}
 
+    });
+}
 </script>
 
+<p class = "mapinstructions" style="hidden">Go find DinoLocations on the Map</p>
+	
+<!-- Map creation -->
+	<div id="mapid" class="mapclass" style="hidden"></div>
 
+<!-- <script src="map2.js"> -->
+
+
+<!--
 <button onclick="updateScoreFunction()">Click me</button>
 <script>
 function updateScoreFunction(){
@@ -159,7 +230,7 @@ function updateScoreFunction(){
 }
 </script>
 <script>
-<!-- ASSIGN NEW HI SCORE TO CURRENT USER -->
+<!-- ASSIGN NEW HI SCORE TO CURRENT USER
 function updateScoreFunction2(){
 $.post('/updateScore',
 		{
@@ -171,13 +242,8 @@ $.post('/updateScore',
 }
 </script>
 <button onclick="updateScoreFunction2()">100000</button>
+-->
 
-
-<%
-console.log(dinos.length);
-%>
-<table id="topscores" style="width:100%">
-</table>
 
 <%
 	<!-- var mymap=L.map('mapid').setView([26.305892349824866,-98.17293477943724],13); -->
@@ -208,7 +274,7 @@ console.log(dinos.length);
 	}	
 %>
 
-<script src="marker_class.js">
+<!-- <script src="marker_class.js"> -->
 
 
 </script>
@@ -241,6 +307,8 @@ console.log(dinos.length);
 	var test= <%-JSON.stringify(coords)%>;
 	var dino_db=<%-JSON.stringify(din)%>;
 	var marker_arr=new Array();
+	var marker_arr2=new Array();
+	
 	console.log("test: "+dino_db[0].idn);
 	console.log("test: "+test);
 	console.log(test.length);
@@ -248,45 +316,65 @@ console.log(dinos.length);
 	for(var i=0;i<dino_db.length;i++){
 		for(var x=0;x<dino_db[i].coord.length;x++){
 			var cord=dino_db[i].coord[x];
-			marker=L.marker([cord[0],cord[1]]).addTo(mymap);
-			marker.bindPopup(dino_db[i].name+ "<br><a href='random.html'>Access this Dinosaur now!!</a>");
+			marker=L.marker([cord[0],cord[1]]).addTo(mymap).on('click', onClick);
+			marker.bindPopup(dino_db[i].name+ "<br><a target='_blank' href='random.html'>Access this Dinosaur now!!</a>");
 			marker.openPopup();
-			marker_arr.push(marker);
+			marker_arr.push(dino_db[i].idn,marker);
 		}
 	}
-	var lats=test[1][0];
+
+ 	var lats=test[1][0];
 	var lon=test[1][1];
 	var marker3=L.marker([lats,lon]).addTo(mymap);
 	marker3.openPopup();
 	
-
-/*	mymap.on("click",function(){
-		var x=Math.floor(Math.random() * 3) + 1;
-		if(x==1){
-			document.getElementById("dino").src=imgs[0][0]
-			document.getElementById("dinotext").innerHTML=imgs[0][1]
+	function onClick(e) {
+			x=this.getLatLng();
+			lat=x.lat;
+			lng=x.lng;
+			for(var i=0;i<dino_db.length;i++){
+				for(var x=0; x<dino_db[i].coord.length;x++){
+					lat1=dino_db[i].coord[x][0];
+					lng2=dino_db[i].coord[x][1];
+					if(lat1==lat && lng2==lng){
+						console.log("we found it!! Take that bitch!");
+						marker_arr2.push(dino_db[i].idn, dino_db[i].name);
+						
+					}
+				}
+				
+			}
 			
+			console.log(x);
 		}
-		else if(x==2){
-			document.getElementById("dino").src=imgs[1][0]
-			document.getElementById("dinotext").innerHTML=imgs[1][1]
-			
-		}
-		else{
-			document.getElementById("dino").src=imgs[2][0]
-			document.getElementById("dinotext").innerHTML=imgs[2][1]
-			
-		}
-		console.log()
-		$("#game").show();
-	});
-	$("#answer").click(function(){
-		var myVar=setTimeout(myFunction,5000);
-
-		
-	});*/
 	
 </script>
+
+
+
+<div class="profile" style ="hidden">
+<input type="text" name="d01" readonly>
+<input type="text" name="d02" readonly>
+<input type="text" name="d03" readonly>
+<input type="text" name="d04" readonly>
+<input type="text" name="d05" readonly>
+<input type="text" name="d06" readonly>
+<input type="text" name="d07" readonly>
+<input type="text" name="d08" readonly>
+<input type="text" name="d09" readonly>
+<input type="text" name="d10" readonly>
+<input type="text" name="d11" readonly>
+<input type="text" name="d12" readonly>
+<input type="text" name="d13" readonly>
+<input type="text" name="d14" readonly>
+<input type="text" name="d15" readonly>
+<input type="text" name="d16" readonly>
+<input type="text" name="d17" readonly>
+<input type="text" name="d18" readonly>
+<input type="text" name="d19" readonly>
+<input type="text" name="d20" readonly>
+<input type="text" name="d21" readonly>
+</div>
 
 
 <!-- 
@@ -311,7 +399,10 @@ console.log(dinos.length);
   </form> -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- 	<script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script> -->
-	<<!-- script src="map2.js"> </script> -->
+	<!-- script src="map2.js"> </script> -->
 <!-- 	<script type="text/javascript" src="/javascript/map2.js"></script> -->
+<!-- <script src="marker.js"></script> -->
+
+
 </body>
 </html>

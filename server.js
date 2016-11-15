@@ -4,10 +4,17 @@ const bodyParser = require ('body-parser')
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}))
 var db
-
-
-
 var currentLogIn
+
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+
+
 
 MongoClient.connect('mongodb://dinodex:qqppaamm@ds041566.mlab.com:41566/dinodex', (err, database) => {
   if (err) return console.log(err)
@@ -27,11 +34,17 @@ app.get('/', (req, res) => {
   
 })
 
-app.get('/', (req, res) => {
-db.collection('users').find().toArray((err, result) => {
+app.get('/usersinfo', (req, res) => {
+  db.collection('users').find().toArray((err, result) => {
     if (err) return console.log(err)
-    res.render('index.ejs', {users: result})
+    res.send(result)
+  })
+})
 
+app.get('/dinosinfo', (req, res) => {
+  db.collection('dinos').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.send(result)
   })
 })
 
@@ -41,7 +54,7 @@ app.post('/login', function (req, res, next) {
    var userid1 = req.body.userid;
    var pass = req.body.password;
 
-   db.collection('users').find({userid: userid1, userpassword: pass}, function(err, user) {
+   db.collection('users').findOne({userid: userid1, userpassword: pass}, function(err, user) {
       if(err) return next(err);
       if(!user) {
 		  
@@ -90,15 +103,21 @@ app.post('/update', (req,res) =>{
 
 app.post('/signup', (req,res) =>{
 	
-	var bool = checkTaken(req.body.userid)
-	
-	
-	
-	
-	if(bool){
-	if (req.body.password == req.body.password2){
+var check = 0;
+   db.collection('users').findOne({userid: req.body.userid}, function(err, user) {
+      if(err) return next(err);
+      if(!user) {
+		  check = 1;
+		  console.log("not found happens");
+	  }
+	  
+	console.log(req.body.userid);
+	console.log(check);
+	if(check > 0){
+		console.log(req.body.password1 + req.body.password2)
+	if (req.body.password1 == req.body.password2){
 
-			db.collection('users').insertOne({userid: req.body.userid, password: req.body.password}, function (err, numUpdated) {
+		db.collection('users').insertOne({userid: req.body.userid, userpassword: req.body.password1}, function (err, numUpdated) {
 		  if (err) {
 			console.log(err);
 		  } else if (numUpdated) {
@@ -107,7 +126,7 @@ app.post('/signup', (req,res) =>{
 		  //Close connection
 		 
 		});
-			console.log(req.body.userid)
+		console.log(req.body.userid)
 	
 	}
 	else{
@@ -115,26 +134,11 @@ app.post('/signup', (req,res) =>{
 	}
 	}
 	else console.log('user taken!');
+   });
 })
 
-function checkTaken(userid1){
 
-   db.collection('users').find({userid: userid1}, function(err, user) {
-      if(err) return next(err);
-      if(!user) {
-		  
-		  console.log('user not found(good)')
-		  return false
-		  
-	  }
-		
-		console.log('USER FOUNDSDDDD')
-      return true
-   });
-	
-	
-	
-}
+
 
 
 /* load("map2.js"); */

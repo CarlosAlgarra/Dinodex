@@ -39,6 +39,9 @@ function myFunction(){
 		score=score+100;
 		alert("you won! the answer was" + val2 + "the score is " + score);
 		
+		
+		
+		
 	}
 	else{
 		score=score-50;
