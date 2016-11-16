@@ -70,7 +70,7 @@ app.post('/login', function (req, res, next) {
 
 app.post('/updateScore', (req,res) =>{
 
-	db.collection('users').update({userid: currentLogIn}, {$set: {memScore: req.body.newScore}}, function (err, numUpdated) {
+	db.collection('users').update({userid: currentLogIn}, {$set: {spellScore: req.body.newScore}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
   } else if (numUpdated) {
@@ -85,7 +85,7 @@ app.post('/updateScore', (req,res) =>{
 })
 
 
-app.post('/update', (req,res) =>{
+app.post('/updateDino', (req,res) =>{
 
 	db.collection('users').update({userid: req.body.userid}, {$set: {trophies: [2,5,7]}}, function (err, numUpdated) {
   if (err) {

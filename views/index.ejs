@@ -121,6 +121,9 @@
 	<button align ="right" onclick="showProfile()">Profile</button>
 	</div>
 	<script>
+	var CURRENTDINO
+	
+	
 function showProfile(){
 
 			var currUser = document.getElementById("loginstatus").innerHTML;
@@ -330,6 +333,7 @@ $.post('/updateScore',
 	
 	function onClick(e) {
 			x=this.getLatLng();
+			var game=false;
 			lat=x.lat;
 			lng=x.lng;
 			for(var i=0;i<dino_db.length;i++){
@@ -338,8 +342,9 @@ $.post('/updateScore',
 					lng2=dino_db[i].coord[x][1];
 					if(lat1==lat && lng2==lng){
 						console.log("we found it!! Take that bitch!");
-						marker_arr2.push(dino_db[i].idn, dino_db[i].name);
-						
+						marker_arr2.push(dino_db[i].idn, dino_db[i].name, game);
+						var CURRENTDINO = dino_db[i].idn;
+						document.getElementById("CURRENTDINOID").innerHTML=CURRENTDINO;
 					}
 				}
 				
@@ -402,7 +407,8 @@ $.post('/updateScore',
 	<!-- script src="map2.js"> </script> -->
 <!-- 	<script type="text/javascript" src="/javascript/map2.js"></script> -->
 <!-- <script src="marker.js"></script> -->
-
+<script type="text/javascript" src="Spelling_Game/Spell_Game.js"></script>
+<p id="CURRENTDINOID">HERE</p>
 
 </body>
 </html>
