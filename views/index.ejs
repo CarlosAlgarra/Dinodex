@@ -58,6 +58,9 @@
 		#settings{
 			text-align: center;
 		}
+		#CURRENTDINOID{
+			display: none;
+		}
 
 		.showingCard{
 			background-color: #ccc;
@@ -74,6 +77,9 @@
 		.profile{
 			display: none;
 		}
+		.leaderboard{
+			display:none;
+		}
 
 		.pairFound{
 			background-color: #ff0;
@@ -86,6 +92,48 @@
 
 </head>
 <body>
+
+<script>
+function leaderboards(){
+	$("#mapid").hide();
+	$(".loginer").hide();
+	$(".createaccount").hide();
+	$(".mapinstructions").hide();
+	
+	var currentUser = loginstatus.innerHTML;
+	var spellArray
+	var memArray
+	var whackArray
+	var templeArray
+	
+	
+	    $.getJSON("/usersinfo", function(data, status){
+        //alert(data[1].userid + data[1].password);
+		//alert(data[0].userid +"  "+data[0].userpassword )
+		for(var i = 0; i<data.length; i++){
+			var user=data[i].userid;
+			var spell=data[i].spellScore;
+			var mem=data[i].memScore;
+			var whack=data[i].whackScore;
+			var temple=data[i].templeScore;
+			spellArray.push(user,spell);
+			memArray.push(user,mem);
+			whackArray.push(user,whack);
+			templeArray.push(user,temple);	
+		}
+		
+		
+		//LEFT OFF HERE Sort yay
+		
+		
+		
+			
+			
+
+    });
+}
+</script>
+
 	<div class="jumbotron">
 		<h1>DinoDex</h1>
 		<p align="right" style="hidden" class="loginstatus" id="loginstatus">Please Login</p>
@@ -101,6 +149,7 @@
 				<li><a href="dinosaurs.html">Dinosaurs</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="localhost:3000" onclick="leaderboards()"><span class="glyphicon glyphicon-user"></span>Leaderboards</a></li>
 				<li><a href="localhost:3000"><span class="glyphicon glyphicon-user"></span>View Profile</a></li>
 				<li><a href="Start_Menu.html"><span class="glyphicon glyphicon-remove"></span>Sign Out</a></li>
 		</div>
@@ -165,6 +214,47 @@ function showProfile(){
 <button type ="submit" >Create Account</button>
 </form>
 </div>
+
+
+<div class = "leaderboard" style="hidden">
+<ul id = "spellHi">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+
+<ul id = "memHi">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+
+<ul id = "whackHi">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+
+<ul id = "templeHi">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+
+</div>
+
+
+
+
+
 <script>
 function logging(){
 	var id = document.getElementById("usid").value
@@ -184,6 +274,7 @@ function logging(){
 				$(".loginer").hide();
 				$(".createaccount").hide();
 				$(".mapinstructions").show();
+				$("#mapid").show();
 				loginstatus.innerHTML = id;
 				alert("Successful Login");}
 		else{
@@ -309,7 +400,7 @@ function logging(){
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="Spelling_Game/Spell_Game.js"></script>
-<p id="CURRENTDINOID">HERE</p>
+<p id="CURRENTDINOID" style="hidden">NULL</p>
 
 </body>
 </html>

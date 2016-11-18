@@ -117,7 +117,7 @@ var check = 0;
 		console.log(req.body.password1 + req.body.password2)
 	if (req.body.password1 == req.body.password2){
 
-		db.collection('users').insertOne({userid: req.body.userid, userpassword: req.body.password1}, function (err, numUpdated) {
+		db.collection('users').insertOne({userid: req.body.userid, userpassword: req.body.password1, admin: "no", memScore: "0", spellScore:"0", whackScore:"0", templeScore: "0", dinos:""}, function (err, numUpdated) {
 		  if (err) {
 			console.log(err);
 		  } else if (numUpdated) {
