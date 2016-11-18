@@ -3,14 +3,11 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 	<script src="http://code.jquery.com/jquery.min.js"></script>
-	
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
 	<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
-	<!-- <link rel="stylesheet" type="text/css" href="Main_Map.css" /> -->
-	<!-- <link rel="stylesheet" type="text/css" href="/public/Main_Map.css" /> -->
+
 	<meta charset="UTF-8">
 	<title>DinoDex Map</title>
 	<style>
@@ -26,6 +23,9 @@
 		#mapid{
 			display: block;
 			margin: 0 auto;
+			width: 800px; 
+			height: 800px;
+			display: none;
 		}
 		
 		#game{
@@ -74,12 +74,6 @@
 		.profile{
 			display: none;
 		}
-		.mapclass{
-		
-			width: 800px; 
-			height: 800px;
-			display: none;
-		}
 
 		.pairFound{
 			background-color: #ff0;
@@ -89,10 +83,6 @@
 		}
 	</style>
 	
-	<script>
-	$('.mapclass').hide();
-
-	</script>
 
 </head>
 <body>
@@ -121,7 +111,6 @@
 	<button align ="right" onclick="showProfile()">Profile</button>
 	</div>
 	<script>
-	var CURRENTDINO
 	
 	
 function showProfile(){
@@ -156,18 +145,7 @@ function showProfile(){
     });
 }
 </script>
-	
-	<!-- dummy register and login -->
-	
-<!--
-<div>
-<form action="/update" method="POST">
-<input type="text" placeholder="userid" name="userid">
-<input type="text" placeholder="trophy" name="trophy">
-<button type ="submit">SUBMIT</button>
-</form>
-</div>
--->
+
 
 <div class = "loginer" style="hidden">
 <p>Login</p>
@@ -220,32 +198,6 @@ function logging(){
 <!-- Map creation -->
 	<div id="mapid" class="mapclass" style="hidden"></div>
 
-<!-- <script src="map2.js"> -->
-
-
-<!--
-<button onclick="updateScoreFunction()">Click me</button>
-<script>
-function updateScoreFunction(){
-	$(".createaccount").show();
-
-
-}
-</script>
-<script>
-<!-- ASSIGN NEW HI SCORE TO CURRENT USER
-function updateScoreFunction2(){
-$.post('/updateScore',
-		{
-		newScore: '10000'
-		});
-		
-		
-		console.log('this happenes')
-}
-</script>
-<button onclick="updateScoreFunction2()">100000</button>
--->
 
 
 <%
@@ -355,58 +307,7 @@ $.post('/updateScore',
 	
 </script>
 
-
-
-<div class="profile" style ="hidden">
-<input type="text" name="d01" readonly>
-<input type="text" name="d02" readonly>
-<input type="text" name="d03" readonly>
-<input type="text" name="d04" readonly>
-<input type="text" name="d05" readonly>
-<input type="text" name="d06" readonly>
-<input type="text" name="d07" readonly>
-<input type="text" name="d08" readonly>
-<input type="text" name="d09" readonly>
-<input type="text" name="d10" readonly>
-<input type="text" name="d11" readonly>
-<input type="text" name="d12" readonly>
-<input type="text" name="d13" readonly>
-<input type="text" name="d14" readonly>
-<input type="text" name="d15" readonly>
-<input type="text" name="d16" readonly>
-<input type="text" name="d17" readonly>
-<input type="text" name="d18" readonly>
-<input type="text" name="d19" readonly>
-<input type="text" name="d20" readonly>
-<input type="text" name="d21" readonly>
-</div>
-
-
-<!-- 
-<div class='test' data-test-value='<%-JSON.stringify(coords)%>'></div>
-
-
-  <ul class="quotes">
-  <% for(var i=0; i<dinos.length; i++) {%>
-    <li class="quote">
-      <span><%= dinos[i].name %></span>
-      <span><%= dinos[i].diet %></span>
-    </li>
-  <% } %>
-  </ul>
-  
- -->
-<!-- 
-  <form action="/quotes" method="POST">
-    <input type="text" placeholder="name" name="name">
-    <input type="text" placeholder="quote" name="quote">
-    <button type="submit">Submit</button>
-  </form> -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- 	<script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script> -->
-	<!-- script src="map2.js"> </script> -->
-<!-- 	<script type="text/javascript" src="/javascript/map2.js"></script> -->
-<!-- <script src="marker.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="Spelling_Game/Spell_Game.js"></script>
 <p id="CURRENTDINOID">HERE</p>
 
