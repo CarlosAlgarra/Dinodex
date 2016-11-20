@@ -94,41 +94,54 @@
 <body>
 
 <script>
+function compareSecondColumn(a, b) {
+			if (a[1] === b[1]) {
+				return 0;
+			}
+			else {
+				return (a[1] < b[1]) ? -1 : 1;
+			}
+		}
 function leaderboards(){
 	$("#mapid").hide();
 	$(".loginer").hide();
 	$(".createaccount").hide();
 	$(".mapinstructions").hide();
+	$(".leaderboard").show();
 	
 	var currentUser = loginstatus.innerHTML;
-	var spellArray
-	var memArray
-	var whackArray
-	var templeArray
+	var spellArray= new Array();
+	var memArray= new Array();
+	var whackArray= new Array();
+	var templeArray= new Array();
 	
 	
-	    $.getJSON("/usersinfo", function(data, status){
-        //alert(data[1].userid + data[1].password);
-		//alert(data[0].userid +"  "+data[0].userpassword )
+	$.getJSON("/usersinfo", function(data, status){
 		for(var i = 0; i<data.length; i++){
 			var user=data[i].userid;
 			var spell=data[i].spellScore;
+			console.log(user);
+			console.log(spell);
 			var mem=data[i].memScore;
 			var whack=data[i].whackScore;
 			var temple=data[i].templeScore;
-			spellArray.push(user,spell);
-			memArray.push(user,mem);
-			whackArray.push(user,whack);
-			templeArray.push(user,temple);	
+			spellArray.push([user,spell]);
+			memArray.push([user,mem]);
+			whackArray.push([user,whack]);
+			templeArray.push([user,temple]);	
 		}
 		
-		
-		//LEFT OFF HERE Sort yay
-		
-		
-		
-			
-			
+	spellArray.sort(compareSecondColumn);
+	memArray.sort(compareSecondColumn);
+	whackArray.sort(compareSecondColumn);
+	templeArray.sort(compareSecondColumn);
+	console.log(spellArray);
+	for (var i = 0; i < 5; i++) {
+		document.getElementById('spellHi').innerHTML += '<li>' + spellArray[i][0] +' '+ spellArray[i][1] + '</li>';
+		document.getElementById('memHi').innerHTML += '<li>' + memArray[i][0] +' '+ memArray[i][1] + '</li>';
+		document.getElementById('whackHi').innerHTML += '<li>' + whackArray[i][0] +' '+ whackArray[i][1] + '</li>';
+		document.getElementById('templeHi').innerHTML += '<li>' + templeArray[i][0] +' '+ templeArray[i][1] + '</li>';		
+		}
 
     });
 }
@@ -217,38 +230,18 @@ function showProfile(){
 
 
 <div class = "leaderboard" style="hidden">
-<ul id = "spellHi">
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
+ <h2> Spell Leaderboard<h2>
+<ul id = "spellHi">	
 </ul>
-
+<h2> Memory Leaderboard<h2>
 <ul id = "memHi">
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
 </ul>
-
+<h2> Whack a Dino Leaderboard<h2>
 <ul id = "whackHi">
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
 </ul>
-
+<h2> Templerun Leaderboard<h2>
 <ul id = "templeHi">
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
 </ul>
-
 </div>
 
 
