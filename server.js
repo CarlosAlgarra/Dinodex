@@ -5,6 +5,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:true}))
 var db
 var currentLogIn
+var currentDinoId
 
 function wait(ms){
    var start = new Date().getTime();
@@ -35,7 +36,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/usersinfo', (req, res) => {
-  db.collection('users').find().toArray((err, result) => {
+	  db.collection('users').find().toArray((err, result) => {
     if (err) return console.log(err)
     res.send(result)
   })
@@ -48,6 +49,23 @@ app.get('/dinosinfo', (req, res) => {
   })
 })
 
+app.get('/getCurrentUser', (req, res) => {
+ 
+	  db.collection('users').find({userid: currentLogIn}).toArray((err, result) => {
+    if (err) return console.log(err)
+    res.send(result)
+  })
+  })
+
+
+app.post('/giveDinoID', function (req, res, next) {
+   var dinoid1 = req.body.dinoid;
+
+   currentDinoId = dinoid1;
+   
+   
+   return console.log(dinoid1)
+});
 
 
 app.post('/login', function (req, res, next) {
@@ -70,6 +88,7 @@ app.post('/login', function (req, res, next) {
 
 app.post('/updateScore', (req,res) =>{
 
+if(req.body.gameName == "spellGame"){
 	db.collection('users').update({userid: currentLogIn}, {$set: {spellScore: req.body.newScore}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
@@ -80,14 +99,9 @@ app.post('/updateScore', (req,res) =>{
   }
  
  
-});
-	console.log(req.body.newScore)
-})
-
-
-app.post('/updateDino', (req,res) =>{
-
-	db.collection('users').update({userid: req.body.userid}, {$set: {trophies: [2,5,7]}}, function (err, numUpdated) {
+});}
+else if (req.body.gameName == "memGame"){
+	db.collection('users').update({userid: currentLogIn}, {$set: {memScore: req.body.newScore}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
   } else if (numUpdated) {
@@ -95,10 +109,28 @@ app.post('/updateDino', (req,res) =>{
   } else {
     console.log('No document found with defined "find" criteria!');
   }
+ 
+ 
+});}
+
+
+	console.log(req.body.newScore)
+})
+
+
+app.post('/updateDino', (req,res) =>{
+
+	db.collection('users').update({userid: currentLogIn}, {$push: {dinos: currentDinoId}}, function (err, numUpdated) {
+  if (err) {
+    console.log(err);
+  } else if (numUpdated) {
+    console.log('Updated Successfully %d document(s). Dino Added', numUpdated);
+  } else {
+    console.log('No document found with defined "find" criteria!');
+  }
   
  
 });
-	console.log(req.body.userid)
 })
 
 app.post('/signup', (req,res) =>{
@@ -117,7 +149,7 @@ var check = 0;
 		console.log(req.body.password1 + req.body.password2)
 	if (req.body.password1 == req.body.password2){
 
-		db.collection('users').insertOne({userid: req.body.userid, userpassword: req.body.password1, admin: "no", memScore: "0", spellScore:"0", whackScore:"0", templeScore: "0", dinos:""}, function (err, numUpdated) {
+		db.collection('users').insertOne({userid: req.body.userid, userpassword: req.body.password1, admin: "no", memScore: "0", spellScore:"0", whackScore:"0", templeScore: "0", dinos:[]}, function (err, numUpdated) {
 		  if (err) {
 			console.log(err);
 		  } else if (numUpdated) {

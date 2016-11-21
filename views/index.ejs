@@ -59,7 +59,6 @@
 			text-align: center;
 		}
 		#CURRENTDINOID{
-			display: none;
 		}
 
 		.showingCard{
@@ -78,6 +77,9 @@
 			display: none;
 		}
 		.leaderboard{
+			display:none;
+		}
+		.userprofile{
 			display:none;
 		}
 
@@ -108,6 +110,7 @@ function leaderboards(){
 	$(".createaccount").hide();
 	$(".mapinstructions").hide();
 	$(".leaderboard").show();
+	$(".userprofile").hide();
 	
 	var currentUser = loginstatus.innerHTML;
 	var spellArray= new Array();
@@ -146,10 +149,55 @@ function leaderboards(){
     });
 }
 </script>
+	<script>
+	
+	
+function showProfile(){
+	$("#mapid").hide();
+	$(".loginer").hide();
+	$(".createaccount").hide();
+	$(".mapinstructions").hide();
+	$(".leaderboard").hide();
+	$(".userprofile").show();
+
+			var currUser = document.getElementById("loginstatus").innerHTML;
+			var dinoArray;
+			//alert(currUser)
+			
+    $.getJSON("/usersinfo", function(data, status){
+        //alert(data[1].userid + data[1].password);
+		//alert(data[0].userid +"  "+data[0].userpassword )
+		if(currUser != "Please Login"){
+			for(var i = 0; i<data.length; i++){
+				if(data[i].userid == currUser){
+					dinoArray = data[i].dinos;
+				}
+			}
+		}
+		else alert('Please login first!')
+		
+		
+		dinoArray.sort()
+		$.getJSON("/dinosinfo", function(datas, status){
+		
+			for(var i = 0; i < dinoArray; i++){
+				var tempString = dinoArray[i];
+				
+				for(var j = 0; j<datas.length; j++){
+					
+				}	
+			}
+		}
+
+    });
+}
+</script>
 
 	<div class="jumbotron">
 		<h1>DinoDex</h1>
-		<p align="right" style="hidden" class="loginstatus" id="loginstatus">Please Login</p>
+		<div>
+		<p align="right" style="hidden" class="loginstatus" id="loginstatus" >Please Login</p>
+		</div>
 	</div>
 	<nav class="navbar navbar-default">
 		<div id="nav" class="container-fluid">
@@ -163,50 +211,14 @@ function leaderboards(){
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="localhost:3000" onclick="leaderboards()"><span class="glyphicon glyphicon-user"></span>Leaderboards</a></li>
-				<li><a href="localhost:3000"><span class="glyphicon glyphicon-user"></span>View Profile</a></li>
 				<li><a href="Start_Menu.html"><span class="glyphicon glyphicon-remove"></span>Sign Out</a></li>
 		</div>
 				
 	</nav>
 	
 	<div align ="right">
-	<button align ="right" onclick="showProfile()">Profile</button>
 	</div>
-	<script>
-	
-	
-function showProfile(){
 
-			var currUser = document.getElementById("loginstatus").innerHTML;
-			var dinoArray;
-			//alert(currUser)
-			
-    $.getJSON("/usersinfo", function(data, status){
-        //alert(data[1].userid + data[1].password);
-		//alert(data[0].userid +"  "+data[0].userpassword )
-		if(currUser != "Please Login"){
-			for(var i = 0; i<data.length; i++){
-				if(data[i].userid == currUser){
-					dinoArray = data[i].trophies;
-				}
-			}
-		}
-		else alert('Please login first!')
-		
-		$.getJSON("/dinosinfo", function(data, status){
-		
-			for(var i = 0; i < dinoArray; i++){
-				var tempString = dinoArray[i];
-				
-				tempString.innerHTML = ;
-				//FINISHUP
-				
-			}
-		}
-
-    });
-}
-</script>
 
 
 <div class = "loginer" style="hidden">
@@ -245,6 +257,14 @@ function showProfile(){
 </div>
 
 
+<div class = "userprofile" style="hidden">
+ <h2> DinoDex<h2>
+<ul id = "dinodexlist">	
+</ul>
+
+</div>
+
+
 
 
 
@@ -268,7 +288,7 @@ function logging(){
 				$(".createaccount").hide();
 				$(".mapinstructions").show();
 				$("#mapid").show();
-				loginstatus.innerHTML = id;
+				loginstatus.innerHTML= id;
 				alert("Successful Login");}
 		else{
 			alert("nope")}
@@ -377,10 +397,13 @@ function logging(){
 					lat1=dino_db[i].coord[x][0];
 					lng2=dino_db[i].coord[x][1];
 					if(lat1==lat && lng2==lng){
-						console.log("we found it!! Take that bitch!");
+						console.log("we found it!! Take that!");
 						marker_arr2.push(dino_db[i].idn, dino_db[i].name, game);
 						var CURRENTDINO = dino_db[i].idn;
-						document.getElementById("CURRENTDINOID").innerHTML=CURRENTDINO;
+												$.post('/giveDinoID',
+											{
+											dinoid: CURRENTDINO
+											});
 					}
 				}
 				
@@ -393,7 +416,7 @@ function logging(){
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="Spelling_Game/Spell_Game.js"></script>
-<p id="CURRENTDINOID" style="hidden">NULL</p>
+
 
 </body>
 </html>

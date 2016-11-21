@@ -1,5 +1,3 @@
-/* alert(CURRENTDINO) */
-
 
 var score=0;
 var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg","Triceratops"],
@@ -40,24 +38,16 @@ function myFunction(){
 	if(val==val2){
 		score=score+100;
 		console.log("you won! the answer was" + val2 + "the score is " + score);
-		$.get('views/index.ejs',null, function(text){
-			var CURRENTDINOID = $(text).find('#CURRENTDINOID')[0].innerHTML
-			var CURRENTDINOUSER = $(text).find('#loginstatus')[0].innerHTML
-			$.post('/updateScore',
-					{
-					newScore: score
-					
-					
-					});
-			
-			
-			
+		
+		$.post('/updateScore',
+			{
+			gameName: "spellGame",
+			newScore: score
 		});
-
 		
-		
-		
-		
+		$.post('/updateDino',
+		{
+		});
 	}
 	else{
 		score=score-50;
@@ -67,6 +57,7 @@ function myFunction(){
 	document.getElementById("spell").value=score;
 	document.getElementById("spell").innerHTML=score;
 	$("#score").show();
+		
 
 
 }

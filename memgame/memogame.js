@@ -1,3 +1,4 @@
+
 function getAllImages(){
 	baseArray = Array();
 	baseArray.push("/memgame/greenface.jpg");
@@ -81,8 +82,8 @@ function padZero10(num){
 	}
 }
 
-
-
+var clickCount = 0;
+var pairsFound = 0;
 MemoryGame.prototype.cardClick = function(cardNum){
 	var $cardDiv = $(this.tBodyElement).find('#card_'+cardNum);
 	
@@ -91,7 +92,7 @@ MemoryGame.prototype.cardClick = function(cardNum){
 		return;
 	}
 
-
+	clickCount = clickCount + 1;
 	cardImageNum = this.cardTable[cardNum];
 	
 	switch(this.cardState){
@@ -108,6 +109,7 @@ MemoryGame.prototype.cardClick = function(cardNum){
 
 		// check if match
 		if(this.cardTable[cardNum] == this.cardTable[this.cardShows1]){
+			pairsFound = pairsFound + 1;
 			$cardDiv.addClass("pairFound");
 			$(this.tBodyElement).find('#card_'+this.cardShows1).addClass("pairFound");
 			this.cardState = 0;
@@ -132,10 +134,40 @@ MemoryGame.prototype.cardClick = function(cardNum){
 		card2.css('background-image', '');
 	
 		this.cardShows1 = this.cardShows2 = null;
+		clickCount = clickCount - 1;
 		
 		this.cardState = 0;
 		break;
 	}
+	
+	if(pairsFound >= 6){
+		/*
+			$.get('views/index.ejs',null, function(text){
+			var CURRENTDINOID = $(text).find('#CURRENTDINOID')[0].innerHTML
+			var CURRENTDINOUSER = $(text).find('#loginstatus').value
+			alert("ID: "+CURRENTDINOID)
+			alert("USER: "+CURRENTDINOUSER)
+		*/
+		$.post('/updateScore',
+		{
+			gameName: "memGame",
+			newScore: clickCount
+		});
+		
+		$.post('/updateDino',
+		{
+		});
+		
+		
+		
+		
+	
+			
+			
+			
+		//});
+	}
+	
 
 
 }
