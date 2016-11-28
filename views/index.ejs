@@ -150,6 +150,58 @@ function leaderboards(){
 }
 </script>
 
+<script>
+function showProfile(){
+
+
+			var currUser = document.getElementById("loginstatus").innerHTML;
+			var dinoArray;
+			var dinoNamesArray;
+			//alert(currUser)
+			
+    $.getJSON("/usersinfo", function(data, status){
+        //alert(data[1].userid + data[1].password);
+		//alert(data[0].userid +"  "+data[0].userpassword )
+		if(currUser != "Please Login"){
+			$("#mapid").hide();
+			$(".loginer").hide();
+			$(".createaccount").hide();
+			$(".mapinstructions").hide();
+			$(".leaderboard").hide();
+			$(".userprofile").show();
+			for(var i = 0; i<data.length; i++){
+				if(data[i].userid == currUser){
+					dinoArray = data[i].dinos;
+				}
+			}
+		}
+		else alert('Please login first!')
+		
+		
+		dinoArray.sort()
+		$.getJSON("/dinosinfo", function(data1, status){
+		
+			for(var i = 1; i <= data1.length; i++){
+				var hasDino = false
+				for(var j = 0; j < dinoArray.length; j++){
+					if(dinoArray[j] == (""+i)){hasDino = true}
+				}
+				
+				if(hasDino == true){
+					document.getElementById('d'+i).innerHTML = data1[i-1].name
+					
+				}
+				
+				
+			}
+		
+		
+		});
+
+    });
+}
+</script>
+
 	<div class="jumbotron">
 		<h1>DinoDex</h1>
 		<div>
@@ -168,6 +220,7 @@ function leaderboards(){
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="localhost:3000" onclick="leaderboards()"><span class="glyphicon glyphicon-user"></span>Leaderboards</a></li>
+				<li><a href="localhost:3000" onclick="showProfile()"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
 				<li><a href="Start_Menu.html"><span class="glyphicon glyphicon-remove"></span>Sign Out</a></li>
 		</div>
 				
@@ -213,12 +266,33 @@ function leaderboards(){
 </ul>
 </div>
 
-
 <div class = "userprofile" style="hidden">
- <h2> DinoDex<h2>
-<ul id = "dinodexlist">	
-</ul>
-
+<a id = "d1"href="">??????????</a><br />
+<a id = "d2"href="">??????????</a><br />
+<a id = "d3"href="">??????????</a><br /> 
+<a id = "d4"href="">??????????</a><br /> 
+<a id = "d5"href="">??????????</a><br /> 
+<a id = "d6"href="">??????????</a><br /> 
+<a id = "d7"href="">??????????</a><br /> 
+<a id = "d8"href="">??????????</a><br /> 
+<a id = "d9"href="">??????????</a><br /> 
+<a id = "d10"href="">??????????</a><br /> 
+<a id = "d11"href="">??????????</a><br /> 
+<a id = "d12"href="">??????????</a><br /> 
+<a id = "d13"href="">??????????</a><br /> 
+<a id = "d14"href="">??????????</a><br /> 
+<a id = "d15"href="">??????????</a><br /> 
+<a id = "d16"href="">??????????</a><br /> 
+<a id = "d17"href="">??????????</a><br /> 
+<a id = "d18"href="">??????????</a><br /> 
+<a id = "d19"href="">??????????</a><br /> 
+<a id = "d20"href="">??????????</a><br /> 
+<a id = "d21"href="">??????????</a><br /> 
+<a id = "d22"href="">??????????</a><br /> 
+<a id = "d23"href="">??????????</a><br /> 
+<a id = "d24"href="">??????????</a><br /> 
+<a id = "d25"href="">??????????</a><br /> 
+<a id = "d26"href="">??????????</a><br /> 
 </div>
 
 
