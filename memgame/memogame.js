@@ -140,7 +140,7 @@ MemoryGame.prototype.cardClick = function(cardNum){
 		break;
 	}
 	
-	if(pairsFound >= 6){
+	if(pairsFound >= 1){
 		/*
 			$.get('views/index.ejs',null, function(text){
 			var CURRENTDINOID = $(text).find('#CURRENTDINOID')[0].innerHTML

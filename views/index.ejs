@@ -101,7 +101,7 @@ function compareSecondColumn(a, b) {
 				return 0;
 			}
 			else {
-				return (a[1] < b[1]) ? -1 : 1;
+				return (a[1] > b[1]) ? -1 : 1;
 			}
 		}
 function leaderboards(){
@@ -149,49 +149,6 @@ function leaderboards(){
     });
 }
 </script>
-	<script>
-	
-	
-function showProfile(){
-	$("#mapid").hide();
-	$(".loginer").hide();
-	$(".createaccount").hide();
-	$(".mapinstructions").hide();
-	$(".leaderboard").hide();
-	$(".userprofile").show();
-
-			var currUser = document.getElementById("loginstatus").innerHTML;
-			var dinoArray;
-			//alert(currUser)
-			
-    $.getJSON("/usersinfo", function(data, status){
-        //alert(data[1].userid + data[1].password);
-		//alert(data[0].userid +"  "+data[0].userpassword )
-		if(currUser != "Please Login"){
-			for(var i = 0; i<data.length; i++){
-				if(data[i].userid == currUser){
-					dinoArray = data[i].dinos;
-				}
-			}
-		}
-		else alert('Please login first!')
-		
-		
-		dinoArray.sort()
-		$.getJSON("/dinosinfo", function(datas, status){
-		
-			for(var i = 0; i < dinoArray; i++){
-				var tempString = dinoArray[i];
-				
-				for(var j = 0; j<datas.length; j++){
-					
-				}	
-			}
-		}
-
-    });
-}
-</script>
 
 	<div class="jumbotron">
 		<h1>DinoDex</h1>
@@ -226,7 +183,7 @@ function showProfile(){
 <form action="/login" method="POST" style = "hidden">
 <input type="text" placeholder="userid" name="userid" id="usid">
 <input type="text" placeholder="password" name="password" id="uspwd">
-<button type ="submit" onclick="logging()">Login</button>
+<button id="logging" type ="submit">Login</button>
 </form>
 </div>
 
@@ -265,38 +222,6 @@ function showProfile(){
 </div>
 
 
-
-
-
-<script>
-function logging(){
-	var id = document.getElementById("usid").value
-	var pass = document.getElementById("uspwd").value
-	var checkBool
-    $.getJSON("/usersinfo", function(data, status){
-        //alert(data[1].userid + data[1].password);
-		//alert(data[0].userid +"  "+data[0].userpassword )
-		for(var i = 0; i<data.length; i++){
-			if(data[i].userid == id && data[i].userpassword == pass){
-				checkBool = true
-				break
-			}
-			checkBool = false
-		}
-		if (checkBool == true){
-				$(".loginer").hide();
-				$(".createaccount").hide();
-				$(".mapinstructions").show();
-				$("#mapid").show();
-				loginstatus.innerHTML= id;
-				alert("Successful Login");}
-		else{
-			alert("nope")}
-
-    });
-}
-</script>
-
 <p class = "mapinstructions" style="hidden">Go find DinoLocations on the Map</p>
 	
 <!-- Map creation -->
@@ -333,18 +258,9 @@ function logging(){
 	}	
 %>
 
-<!-- <script src="marker_class.js"> -->
 
-
-</script>
-
-
-<script src="/memgame/memogame.js"></script>
 
 <script>
-
-
-	
 
 	var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg","Triceratops"],
 				 ["http://orig03.deviantart.net/f652/f/2014/331/5/7/jurassic_world__tyrannosaurus_rex_by_sonichedgehog2-d87wp3n.png","Tyranosaurus Rex"],
@@ -353,6 +269,7 @@ function logging(){
 			   ]
 	var coords=new Array();
 	var mymap=L.map('mapid').setView([26.305892349824866,-98.17293477943724],13);
+	
 
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
@@ -362,6 +279,8 @@ function logging(){
 		'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		id: 'mapbox.streets'
 	}).addTo(mymap);
+	
+	
 
 	var test= <%-JSON.stringify(coords)%>;
 	var dino_db=<%-JSON.stringify(din)%>;
@@ -411,11 +330,40 @@ function logging(){
 			
 			console.log(x);
 		}
+		
+$("#logging").click(function(){
+	var id = document.getElementById("usid").value
+	var pass = document.getElementById("uspwd").value
+	var checkBool
+    $.getJSON("/usersinfo", function(data, status){
+        //alert(data[1].userid + data[1].password);
+		//alert(data[0].userid +"  "+data[0].userpassword )
+		for(var i = 0; i<data.length; i++){
+			if(data[i].userid == id && data[i].userpassword == pass){
+				checkBool = true
+				break
+			}
+			checkBool = false
+		}
+		if (checkBool == true){
+				$(".loginer").hide();
+				$(".createaccount").hide();
+				$(".mapinstructions").show();
+				
+				
+				$("#mapid").css({"display": "block"});
+				mymap.invalidateSize(true)
+				loginstatus.innerHTML= id;
+				alert("Successful Login");}
+		else{
+			alert("nope")}
+
+    });
+});
 	
 </script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script type="text/javascript" src="Spelling_Game/Spell_Game.js"></script>
 
 
 </body>
