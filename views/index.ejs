@@ -43,6 +43,11 @@
 		#game_table {
 			margin: 1px auto;
 		}
+		.loginer{
+			margin: auto;
+			width: 50%;
+			padding: 10px;
+		}
 
 		#game_table div {
 			border: 5px solid #07c;
@@ -64,12 +69,6 @@
 		.showingCard{
 			background-color: #ccc;
 		}
-		.createaccount{
-		}
-		.loginer{
-		}
-		.loginstatus{
-		}
 		.mapinstructions{
 			display: none;
 		}
@@ -88,6 +87,18 @@
 		}
 		#timer, #num_clicks {
 			font-weight: bold;
+		}
+		#titled{
+			display: none;
+		}
+		#navibar{
+			display: none;
+		}
+		#create_account{
+			display:none;
+			margin: auto;
+			width: 50%;
+			padding: 10px;
 		}
 	</style>
 	
@@ -200,15 +211,19 @@ function showProfile(){
 
     });
 }
+
+
+
 </script>
 
-	<div class="jumbotron">
+
+	<div class="jumbotron" id="titled" style="hidden">
 		<h1>DinoDex</h1>
 		<div>
 		<p align="right" style="hidden" class="loginstatus" id="loginstatus" >Please Login</p>
 		</div>
 	</div>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" id="navibar" style="hidden">
 		<div id="nav" class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">DinoDex</a>
@@ -232,22 +247,38 @@ function showProfile(){
 
 
 <div class = "loginer" style="hidden">
-<p>Login</p>
-<form action="/login" method="POST" style = "hidden">
-<input type="text" placeholder="userid" name="userid" id="usid">
-<input type="text" placeholder="password" name="password" id="uspwd">
-<button id="logging" type ="submit">Login</button>
-</form>
+	<form action="/login" method="POST" style = "hidden">
+		<div class="form-group">
+			<label for="usr">Username:</label>
+			<input type="text" placeholder="Username" name="userid" id="usid" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="pwd">Password:</label>
+			<input type="text" placeholder="Password" name="password" id="uspwd"  class="form-control">
+		</div>
+		<button id="logging" type ="submit" class="btn btn-primary">Login</button>
+		</form>
+		<button id="createa" type ="submit" class="btn btn-primary">Create Account</button>
 </div>
 
-<div class = "createaccount" style="hidden">
-<p>Or register a new account.</p>
-<form action="/signup" method="POST">
-<input type="text" placeholder="userid" name="userid">
-<input type="text" placeholder="password2" name="password1">
-<input type="text" placeholder="re-type password" name="password2">
-<button type ="submit" >Create Account</button>
-</form>
+<div class = "createaccount" style="hidden" id="create_account">
+	<form action="/signup" method="POST">
+	<div class="form-group">
+		<label for="u">Username:</label>
+		<input type="text" placeholder="Username" name="userid" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="pwd1">Password:</label>
+		<input type="text" placeholder="Password" name="password1" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="pwd2">Retype Password:</label>
+		<input type="text" placeholder="Retype Password" name="password2" class="form-control">
+	</div>
+	<button id="back" type ="submit" class="btn btn-primary">Submit</button>
+	<button id="back1" type ="submit" class="btn btn-primary">Back</button>		
+	</form>
+	
 </div>
 
 
@@ -332,7 +363,23 @@ function showProfile(){
 	}	
 %>
 
+<script>
+$("#createa").click(function(){
+	console.log("it got here to show create");
+	$("#create_account").show();
+	$(".loginer").hide();
 
+
+});
+$("#back").click(function(){
+	$("#create_account").hide();
+	$(".loginer").show();
+})
+$("#back1").click(function(){
+	$("#create_account").hide();
+	$(".loginer").show();
+})
+</script>
 
 <script>
 
@@ -423,6 +470,8 @@ $("#logging").click(function(){
 				$(".loginer").hide();
 				$(".createaccount").hide();
 				$(".mapinstructions").show();
+				$("#navibar").show();
+				$("#titled").show();
 				
 				
 				$("#mapid").css({"display": "block"});
