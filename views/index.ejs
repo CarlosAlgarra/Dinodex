@@ -107,6 +107,7 @@
 <body>
 
 <script>
+var countclicks=0;
 function compareSecondColumn(a, b) {
 			if (a[1] === b[1]) {
 				return 0;
@@ -116,48 +117,61 @@ function compareSecondColumn(a, b) {
 			}
 		}
 function leaderboards(){
-	$("#mapid").hide();
-	$(".loginer").hide();
-	$(".createaccount").hide();
-	$(".mapinstructions").hide();
-	$(".leaderboard").show();
-	$(".userprofile").hide();
-	
-	var currentUser = loginstatus.innerHTML;
-	var spellArray= new Array();
-	var memArray= new Array();
-	var whackArray= new Array();
-	var templeArray= new Array();
-	
-	
-	$.getJSON("/usersinfo", function(data, status){
-		for(var i = 0; i<data.length; i++){
-			var user=data[i].userid;
-			var spell=data[i].spellScore;
-			console.log(user);
-			console.log(spell);
-			var mem=data[i].memScore;
-			var whack=data[i].whackScore;
-			var temple=data[i].templeScore;
-			spellArray.push([user,spell]);
-			memArray.push([user,mem]);
-			whackArray.push([user,whack]);
-			templeArray.push([user,temple]);	
-		}
+	countclicks++;
+		$("#mapid").hide();
+		$(".loginer").hide();
+		$(".createaccount").hide();
+		$(".mapinstructions").hide();
+		$(".leaderboard").show();
+		$(".userprofile").hide();
 		
-	spellArray.sort(compareSecondColumn);
-	memArray.sort(compareSecondColumn);
-	whackArray.sort(compareSecondColumn);
-	templeArray.sort(compareSecondColumn);
-	console.log(spellArray);
-	for (var i = 0; i < 5; i++) {
-		document.getElementById('spellHi').innerHTML += '<li>' + spellArray[i][0] +' '+ spellArray[i][1] + '</li>';
-		document.getElementById('memHi').innerHTML += '<li>' + memArray[i][0] +' '+ memArray[i][1] + '</li>';
-		document.getElementById('whackHi').innerHTML += '<li>' + whackArray[i][0] +' '+ whackArray[i][1] + '</li>';
-		document.getElementById('templeHi').innerHTML += '<li>' + templeArray[i][0] +' '+ templeArray[i][1] + '</li>';		
+		var currentUser = loginstatus.innerHTML;
+		var spellArray= new Array();
+		var memArray= new Array();
+		var whackArray= new Array();
+		var templeArray= new Array();
+		
+		
+		$.getJSON("/usersinfo", function(data, status){
+			for(var i = 0; i<data.length; i++){
+				var user=data[i].userid;
+				var spell=data[i].spellScore;
+				console.log(user);
+				console.log(spell);
+				var mem=data[i].memScore;
+				var whack=data[i].whackScore;
+				var temple=data[i].templeScore;
+				spellArray.push([user,spell]);
+				memArray.push([user,mem]);
+				whackArray.push([user,whack]);
+				templeArray.push([user,temple]);	
+			}
+			
+		spellArray.sort(compareSecondColumn);
+		memArray.sort(compareSecondColumn);
+		whackArray.sort(compareSecondColumn);
+		templeArray.sort(compareSecondColumn);
+		console.log(spellArray);
+		var sp;
+		var mg;
+		var wk;
+		var tr;
+		if(countclicks!=1){
+			document.getElementById('spellHi').innerHTML='';
+			document.getElementById('memHi').innerHTML ='';
+			document.getElementById('whackHi').innerHTML='';
+			document.getElementById('templeHi').innerHTML='';
+		
+		}
+		for (var i = 0; i < 3; i++) {
+			document.getElementById('spellHi').innerHTML += '<li>' + spellArray[i][0] +' '+ spellArray[i][1] + '</li>';
+			document.getElementById('memHi').innerHTML += '<li>' + memArray[i][0] +' '+ memArray[i][1] + '</li>';
+			document.getElementById('whackHi').innerHTML += '<li>' + whackArray[i][0] +' '+ whackArray[i][1] + '</li>';
+			document.getElementById('templeHi').innerHTML += '<li>' + templeArray[i][0] +' '+ templeArray[i][1] + '</li>';	
 		}
 
-    });
+		});
+	
 }
 </script>
 
@@ -229,14 +243,14 @@ function showProfile(){
 				<a class="navbar-brand" href="#">DinoDex</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="about.html">About</a></li>
-				<li><a href="dinosaurs.html">Dinosaurs</a></li>
+				<li class="active" ><a href="#" id="homenav">Home</a></li>
+				<li><a href="">About</a></li>
+				<li><a href="">Dinosaurs</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="localhost:3000" onclick="leaderboards()"><span class="glyphicon glyphicon-user"></span>Leaderboards</a></li>
 				<li><a href="localhost:3000" onclick="showProfile()"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
-				<li><a href="Start_Menu.html"><span class="glyphicon glyphicon-remove"></span>Sign Out</a></li>
+				<li><a href=""><span class="glyphicon glyphicon-remove"></span>Sign Out</a></li>
 		</div>
 				
 	</nav>
@@ -374,11 +388,12 @@ $("#createa").click(function(){
 $("#back").click(function(){
 	$("#create_account").hide();
 	$(".loginer").show();
-})
+});
 $("#back1").click(function(){
 	$("#create_account").hide();
 	$(".loginer").show();
-})
+});
+
 </script>
 
 <script>
@@ -483,6 +498,16 @@ $("#logging").click(function(){
 
     });
 });
+
+$("#homenav").click(function(){
+		var id = document.getElementById("usid").value
+		$("#mapid").css({"display": "block"});
+		$(".userprofile").hide();
+		$(".leaderboard").hide();
+		mymap.invalidateSize(true)
+		loginstatus.innerHTML= id;
+	
+})
 	
 </script>
 
