@@ -1,7 +1,7 @@
 
 var score=0;
 var imgs = [ [ "http://efdreams.com/data_images/dreams/dinosaur/dinosaur-11.jpg","Triceratops"],
-             ["http://orig03.deviantart.net/f652/f/2014/331/5/7/jurassic_world__tyrannosaurus_rex_by_sonichedgehog2-d87wp3n.png","Tyranosaurus Rex"],
+             ["http://orig03.deviantart.net/f652/f/2014/331/5/7/jurassic_world__tyrannosaurus_rex_by_sonichedgehog2-d87wp3n.png","Tyrannosaurus Rex"],
              ["http://kindersay.com/files/images/dinosaur.png","Brontosaurus"]
            ]
 		   
@@ -29,7 +29,7 @@ function random(){
 }
 
 $("#answer").click(function(){
-	var myVar=setTimeout(myFunction,5000);
+	var myVar=setTimeout(myFunction,10000);
 	});
 	
 function myFunction(){
@@ -38,7 +38,7 @@ function myFunction(){
 	if(val==val2){
 		score=score+100;
 		console.log("you won! the answer was" + val2 + "the score is " + score);
-		
+		alert("You won! A dinosaur has been collected.")
 		$.post('/updateScore',
 			{
 			gameName: "spellGame",
@@ -48,6 +48,7 @@ function myFunction(){
 		$.post('/updateDino',
 		{
 		});
+		
 	}
 	else{
 		score=score-50;

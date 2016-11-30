@@ -1,12 +1,12 @@
 
 function getAllImages(){
 	baseArray = Array();
-	baseArray.push("/memgame/greenface.jpg");
-	baseArray.push("/memgame/redface.jpg");
-	baseArray.push("/memgame/yellowface.jpg");
-	baseArray.push("/memgame/blueface.jpg");
-	baseArray.push("/memgame/purpleface.jpg");
-	baseArray.push("/memgame/pinkface.jpg");
+	baseArray.push("/memgame/blackstego.png");
+	baseArray.push("/memgame/blacktrex.png");
+	baseArray.push("/memgame/bluetrex.png");
+	baseArray.push("/memgame/greenbronto.png");
+	baseArray.push("/memgame/greenstego.png");
+	baseArray.push("/memgame/pinktricera.png");
 	shuffleArray( baseArray );
 	return baseArray;
 }
@@ -140,7 +140,7 @@ MemoryGame.prototype.cardClick = function(cardNum){
 		break;
 	}
 	
-	if(pairsFound >= 1){
+	if(pairsFound >= 6){
 		/*
 			$.get('views/index.ejs',null, function(text){
 			var CURRENTDINOID = $(text).find('#CURRENTDINOID')[0].innerHTML
@@ -158,7 +158,7 @@ MemoryGame.prototype.cardClick = function(cardNum){
 		{
 		});
 		
-		
+		alert("You won! A dinosaur has been collected.")
 		
 		
 	
