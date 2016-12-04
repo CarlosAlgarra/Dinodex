@@ -1,8 +1,23 @@
 const MongoClient = require('mongodb').MongoClient
 const express = require('express');
 const bodyParser = require ('body-parser')
+const session= require('express-session')
+
+/* var session = require('express-session'); */
+
+
+
 const app = express();
+
+
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(session({secret : 'iwiwjeiwjewieji',
+		resave: true,
+		saveUninitialized: true
+		}
+))
+
+
 var db
 var currentLogIn
 var currentDinoId
@@ -51,7 +66,7 @@ app.get('/dinosinfo', (req, res) => {
 
 app.get('/getCurrentUser', (req, res) => {
  
-	  db.collection('users').find({userid: currentLogIn}).toArray((err, result) => {
+	  db.collection('users').find({userid: session.id}).toArray((err, result) => {
     if (err) return console.log(err)
     res.send(result)
   })
@@ -61,10 +76,9 @@ app.get('/getCurrentUser', (req, res) => {
 app.post('/giveDinoID', function (req, res, next) {
    var dinoid1 = req.body.dinoid;
 
-   currentDinoId = dinoid1;
+   session.dino = dinoid1;
    
    
-   return console.log(dinoid1)
 });
 
 
@@ -80,16 +94,21 @@ app.post('/login', function (req, res, next) {
 		  
 	  }
 
-      currentLogIn = userid1;
+      session.id = userid1;
 	  console.log('user '+userid1+' loggedin')
    });
    
 });
 
+/* app.post('/logout', function(req, res, next){
+	
+	
+}) */
+
 app.post('/updateScore', (req,res) =>{
 
 if(req.body.gameName == "spellGame"){
-	db.collection('users').update({userid: currentLogIn}, {$set: {spellScore: req.body.newScore}}, function (err, numUpdated) {
+	db.collection('users').update({userid: session.id}, {$set: {spellScore: req.body.newScore}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
   } else if (numUpdated) {
@@ -101,7 +120,7 @@ if(req.body.gameName == "spellGame"){
  
 });}
 else if (req.body.gameName == "memGame"){
-	db.collection('users').update({userid: currentLogIn}, {$set: {memScore: req.body.newScore}}, function (err, numUpdated) {
+	db.collection('users').update({userid: session.id}, {$set: {memScore: req.body.newScore}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
   } else if (numUpdated) {
@@ -120,7 +139,7 @@ else if (req.body.gameName == "memGame"){
 
 app.post('/updateDino', (req,res) =>{
 
-	db.collection('users').update({userid: currentLogIn}, {$push: {dinos: currentDinoId}}, function (err, numUpdated) {
+	db.collection('users').update({userid: session.id}, {$push: {dinos: session.dino}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
   } else if (numUpdated) {
