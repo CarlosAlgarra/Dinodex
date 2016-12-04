@@ -99,7 +99,7 @@ var dxadj = 0;
 var flyx = 0;           // 'flyer' x/y/increment
 var flyy = 0;
 var flyinc = 0;
-var flyer = getImage("space/octopus");
+var flyer = loadImage("space/octopus");
 
 var coinf = 0;          // coin display factor...
 
