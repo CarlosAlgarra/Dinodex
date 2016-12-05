@@ -11,4 +11,10 @@ hr {
 #des{
 	font-family: "Times New Roman", Times, serif;
 	font-style: oblique;
-} 
+}
+
+#author,#date {
+	font-family: "Times New Roman", Times, serif;
+	font-style: italic;
+	
+}

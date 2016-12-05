@@ -78,6 +78,8 @@ app.post('/giveDinoID', function (req, res, next) {
 
    session.dino = dinoid1;
    
+   console.log(session.dino)
+   
    
 });
 
