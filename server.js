@@ -43,7 +43,17 @@ MongoClient.connect('mongodb://dinodex:qqppaamm@ds041566.mlab.com:41566/dinodex'
 app.get('/', (req, res) => {
   db.collection('dinos').find().toArray((err, result) => {
     if (err) return console.log(err)
-    res.render('index.ejs', {dinos: result})
+		
+	
+	if(req.sessionID){
+		console.log(req.sessionID)
+		res.render('loggedindex.ejs', {dinos: result})
+		}
+	else{
+		res.render('index.ejs', {dinos: result})}
+
+	
+
 
   })
   
