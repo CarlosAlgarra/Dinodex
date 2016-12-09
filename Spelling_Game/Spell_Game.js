@@ -44,10 +44,7 @@ function myFunction(){
 			gameName: "spellGame",
 			newScore: score
 		});
-		
-		$.post('/updateDino',
-		{
-		});
+
 		
 	}
 	else{

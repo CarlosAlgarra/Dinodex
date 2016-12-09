@@ -73,14 +73,15 @@ app.get('/getCurrentUser', (req, res) => {
   })
 
 
-app.post('/giveDinoID', function (req, res, next) {
+app.post('/giveDinoID', function (req, res) {
    var dinoid1 = req.body.dinoid;
 
    session.dino = dinoid1;
    
    console.log(session.dino)
    
-   
+   res.status(201)
+   res.json();
 });
 
 
@@ -98,7 +99,13 @@ app.post('/login', function (req, res, next) {
 
       session.id = userid1;
 	  console.log('user '+userid1+' loggedin')
+	     res.status(202)
+
+		
+
    });
+   
+
    
 });
 
@@ -106,8 +113,36 @@ app.post('/login', function (req, res, next) {
 	
 	
 }) */
+/*
+app.post('/updateDino', (req,res) =>{
+
+	db.collection('users').update({userid: session.id}, {$push: {dinos: session.dino}}, function (err, numUpdated) {
+  if (err) {
+    console.log(err);
+  } else if (numUpdated) {
+    console.log('Updated Successfully %d document(s). Dino Added', numUpdated);
+  } else {
+    console.log('No document found with defined "find" criteria!');
+  }
+  
+ 
+});
+})
+*/
 
 app.post('/updateScore', (req,res) =>{
+	
+		db.collection('users').update({userid: session.id}, {$push: {dinos: session.dino}}, function (err, numUpdated) {
+  if (err) {
+    console.log(err);
+  } else if (numUpdated) {
+    console.log('Updated Successfully %d document(s). Dino Added', numUpdated);
+  } else {
+    console.log('No document found with defined "find" criteria!');
+  }
+  
+ 
+});
 
 if(req.body.gameName == "spellGame"){
 	db.collection('users').update({userid: session.id}, {$set: {spellScore: req.body.newScore}}, function (err, numUpdated) {
@@ -134,25 +169,23 @@ else if (req.body.gameName == "memGame"){
  
 });}
 
+else if (req.body.gameName == "hangGame"){
+	db.collection('users').update({userid: session.id}, {$set: {memScore: req.body.newScore}}, function (err, numUpdated) {
+  if (err) {
+    console.log(err);
+  } else if (numUpdated) {
+    console.log('Updated Successfully %d document(s).', numUpdated);
+  } else {
+    console.log('No document found with defined "find" criteria!');
+  }
+ 
+ 
+});}
+
 
 	console.log(req.body.newScore)
 })
 
-
-app.post('/updateDino', (req,res) =>{
-
-	db.collection('users').update({userid: session.id}, {$push: {dinos: session.dino}}, function (err, numUpdated) {
-  if (err) {
-    console.log(err);
-  } else if (numUpdated) {
-    console.log('Updated Successfully %d document(s). Dino Added', numUpdated);
-  } else {
-    console.log('No document found with defined "find" criteria!');
-  }
-  
- 
-});
-})
 
 app.post('/signup', (req,res) =>{
 	

@@ -154,10 +154,6 @@ MemoryGame.prototype.cardClick = function(cardNum){
 			newScore: clickCount
 		});
 		
-		$.post('/updateDino',
-		{
-		});
-		
 		alert("You won! A dinosaur has been collected.")
 		
 		
