@@ -45,12 +45,12 @@ app.get('/', (req, res) => {
     if (err) return console.log(err)
 		
 	
-	if(req.sessionID){
+/* 	if(req.sessionID){
 		console.log(req.sessionID)
 		res.render('loggedindex.ejs', {dinos: result})
 		}
-	else{
-		res.render('index.ejs', {dinos: result})}
+	else{ }*/
+		res.render('index.ejs', {dinos: result})
 
 	
 
@@ -69,6 +69,13 @@ app.get('/usersinfo', (req, res) => {
 
 app.get('/dinosinfo', (req, res) => {
   db.collection('dinos').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.send(result)
+  })
+})
+
+app.get('/bloginfo', (req, res) => {
+  db.collection('blog').find().toArray((err, result) => {
     if (err) return console.log(err)
     res.send(result)
   })
@@ -240,4 +247,5 @@ var check = 0;
 /* load("map2.js"); */
 app.use(express.static(__dirname));
 app.use(express.static("map2.js"));
+app.use(express.static("blog.html"));
 

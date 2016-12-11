@@ -78,6 +78,7 @@
 		}
 		.leaderboard{
 			display:none;
+			color: white;
 		}
 		.userprofile{
 			display:none;
@@ -110,6 +111,9 @@
 			width: 50%;
 			padding: 10px;
 		}
+		.twitter{
+			display: none;
+		}
 	</style>
 	
 
@@ -138,6 +142,7 @@ function leaderboards(){
 		$(".leaderboard").show();
 		$(".userprofile").hide();
 		$(".dinoSheet").hide();
+		$(".twitter").hide();
 		
 		var currentUser = loginstatus.innerHTML;
 		var spellArray= new Array();
@@ -208,6 +213,7 @@ function showProfile(){
 			$(".mapinstructions").hide();
 			$(".leaderboard").hide();
 			$(".userprofile").show();
+			$(".twitter").hide();
 			for(var i = 0; i<data.length; i++){
 				if(data[i].userid == currUser){
 					dinoArray = data[i].dinos;
@@ -430,6 +436,7 @@ function showSheet(dinoId){
 
 
 <p class = "mapinstructions" style="hidden">Go find DinoLocations on the Map</p>
+<div class="twitter" style="hidden" ><a class="twitter-timeline" height="600" width="300" href="https://twitter.com/dinomap3">Tweets by dinomap3</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 	
 <!-- Map creation -->
 	<div id="mapid" class="mapclass" style="hidden"></div>
@@ -575,6 +582,7 @@ $("#logging").click(function(){
 				$(".mapinstructions").show();
 				$("#navibar").show();
 				$("#titled").show();
+				$(".twitter").show();
 				
 				
 				$("#mapid").css({"display": "block"});
@@ -593,6 +601,7 @@ $("#homenav").click(function(){
 		$(".userprofile").hide();
 		$(".leaderboard").hide();
 		$(".dinoSheet").hide();
+		$(".twitter").show();
 		mymap.invalidateSize(true)
 		loginstatus.innerHTML= id;
 	
