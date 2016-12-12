@@ -114,6 +114,10 @@
 		.twitter{
 			display: none;
 		}
+		.changepassword{
+		}
+		
+		
 	</style>
 	
 
@@ -297,6 +301,23 @@ function checkHas(array, num){
 	</div>
 
 
+<div class = "changepassword" style="hidden">
+	<form action="/changepassword" method="POST" style = "hidden">
+		<div class="form-group">
+			<label for="cpass">Current Password: </label>
+			<input type="text"  name="currentpass" id="currentpass" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="pass">New password: </label>
+			<input type="text"  name="newpass" id="newpass" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="pass1">New password again:</label>
+			<input type="text" name="newpass2" id="newpass"  class="form-control">
+		</div>
+		<button id="changepassword" type ="submit" class="btn btn-primary">Change password</button>
+		</form>
+</div>
 
 <div class = "loginer" style="hidden">
 	<form action="/login" method="POST" style = "hidden">
@@ -480,6 +501,25 @@ $("#createa").click(function(){
 
 
 });
+
+$("#changepassword").click(function(){
+	var currentpass1 = document.getElementById("currentpass").value
+	var newpass1 = document.getElementById("newpass").value
+	var newpass2 = document.getElementById("newpass2").value
+	var checkBool
+	
+	
+	if(newpass = newpass2){
+		$.post('/changepassword',
+		{
+			currentpass: currentpass1,
+			newpass: newpass1
+		});
+	}
+	
+
+});
+
 $("#back").click(function(){
 	$("#create_account").hide();
 	$(".loginer").show();

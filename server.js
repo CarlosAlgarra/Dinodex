@@ -101,6 +101,26 @@ app.post('/giveDinoID', function (req, res) {
    res.json();
 });
 
+app.post('/changepassword', function (req, res, next) {
+   var userid1 = session.id;
+   var pass = req.body.currentpass;
+   var newpass = req.body.newpass;
+
+		db.collection('users').update({userid: session.id, userpassword:pass}, {$set: {userpassword: newpass}}, function (err, numUpdated) {
+  if (err) {
+    console.log(err);
+  } else if (numUpdated) {
+    console.log('Password changed!');
+  } else {
+    console.log('No document found with defined "find" criteria!');
+  }
+  
+ 
+});
+   
+
+   
+});
 
 app.post('/login', function (req, res, next) {
    var userid1 = req.body.userid;
