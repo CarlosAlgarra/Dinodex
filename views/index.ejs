@@ -72,13 +72,20 @@
 		}
 		.mapinstructions{
 			display: none;
+			text-align: center;
+			color: #1e90ff
 		}
 		.profile{
 			display: none;
 		}
 		.leaderboard{
 			display:none;
-			color: white;
+			color: 	#1e90ff;
+			width: 50%;
+			margin: 0 auto; 
+			text-align: center;
+			background-color:white
+		
 		}
 		.userprofile{
 			display:none;
@@ -90,7 +97,6 @@
 			width: 500px;
 			width: 50%;
 			margin: 0 auto; 
-			text-align: center;
 		}
 
 		.pairFound{
@@ -101,6 +107,8 @@
 		}
 		#titled{
 			display: none;
+			 color: #1e90ff;
+			 background-color: white;
 		}
 		#navibar{
 			display: none;
@@ -113,9 +121,20 @@
 		}
 		.twitter{
 			display: none;
+			 position: absolute;
+			top: 400px;
+			right: 0;
+
+
 		}
 		.changepassword{
 			display: none;
+		}
+		#mapin{
+			background: white;
+			width: 300px;
+			margin: auto;
+			padding: 10px;
 		}
 		
 		
@@ -125,6 +144,7 @@
 </head>
 <body>
 <img src='dinobackground.png' style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;'>
+
 
 
 <script>
@@ -279,14 +299,13 @@ function checkHas(array, num){
 		<p align="right" style="hidden" class="loginstatus" id="loginstatus" >Please Login</p>
 		</div>
 	</div>
-	<nav class="navbar navbar-default" id="navibar" style="hidden">
+	<nav class="navbar navbar-inverse" id="navibar" style="hidden">
 		<div id="nav" class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">DinoDex</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li class="active" ><a href="#" id="homenav">Map</a></li>
-				<li><a href="">About</a></li>
 				<li><a target='_blank' href="blog.html">Blog</a></li>
 
 			</ul>
@@ -483,11 +502,12 @@ function showSheet(dinoId){
 </div>
 
 
-<p class = "mapinstructions" style="hidden">Go find DinoLocations on the Map</p>
+<div id="mapin" class = "mapinstructions" style="hidden">Go find DinoLocations on the Map</div>
 <div class="twitter" style="hidden" ><a class="twitter-timeline" height="600" width="300" href="https://twitter.com/dinomap3">Tweets by dinomap3</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 	
 <!-- Map creation -->
 	<div id="mapid" class="mapclass" style="hidden"></div>
+
 
 
 
