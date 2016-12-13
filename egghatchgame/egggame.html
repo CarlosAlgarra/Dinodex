@@ -1,0 +1,119 @@
+<html>
+<head>
+<title>JavaScript Egg Hatch</title>
+
+<script type="text/javascript">
+var res1 = Math.floor(Math.random()*(15 - 5) + 5)
+var res2 = Math.floor(Math.random()*(15 - 5) + 5)
+var res3 = Math.floor(Math.random()*(15 - 5) + 5)
+var res4 = Math.floor(Math.random()*(15 - 5) + 5)
+var res5 = Math.floor(Math.random()*(15 - 5) + 5)
+var res6 = Math.floor(Math.random()*(15 - 5) + 5)
+var res7 = Math.floor(Math.random()*(15 - 5) + 5)
+var res8 = Math.floor(Math.random()*(15 - 5) + 5)
+
+function clickEgg(thisegg){
+
+if(thisegg == "egg1"){
+	res1 = res1 - 1;
+	if(res1 == 4){
+		document.getElementById("egg1").src="egg2.png";
+	}
+	else if(res1 == 1){
+		document.getElementById("egg1").src="egg3.png";
+	}
+	
+	console.log(res1)
+}
+else if(thisegg == "egg2"){
+	res2 = res2 - 1;
+	if(res2 == 4){
+		document.getElementById("egg2").src="egg2.png";
+	}
+	else if(res2 == 1){
+		document.getElementById("egg2").src="egg3.png";
+	}
+}
+
+else if(thisegg == "egg3"){
+	res3 = res3 - 1;
+	if(res3 == 4){
+		document.getElementById("egg3").src="egg2.png";
+	}
+	else if(res3 == 1){
+		document.getElementById("egg3").src="egg3.png";
+	}
+}
+else if(thisegg == "egg4"){
+	res4 = res4 - 1;
+	if(res4 == 4){
+		document.getElementById("egg4").src="egg2.png";
+	}
+	else if(res4 == 1){
+		document.getElementById("egg4").src="egg3.png";
+	}
+}
+else if(thisegg == "egg5"){
+	res5 = res5 - 1;
+	if(res5 == 4){
+		document.getElementById("egg5").src="egg2.png";
+	}
+	else if(res5 == 1){
+		document.getElementById("egg5").src="egg3.png";
+	}
+}
+else if(thisegg == "egg6"){
+	res6 = res6 - 1;
+	if(res6 == 4){
+		document.getElementById("egg6").src="egg2.png";
+	}
+	else if(res6 == 1){
+		document.getElementById("egg6").src="egg3.png";
+	}
+}
+
+else if(thisegg == "egg7"){
+	res7 = res7 - 1;
+	if(res7 == 4){
+		document.getElementById("egg7").src="egg2.png";
+	}
+	else if(res7 == 1){
+		document.getElementById("egg7").src="egg3.png";
+	}
+}
+
+else if(thisegg == "egg8"){
+	res8 = res8 - 1;
+	if(res8 == 4){
+		document.getElementById("egg8").src="egg2.png";
+	}
+	else if(res8 == 1){
+		document.getElementById("egg8").src="egg3.png";
+	}
+}
+
+
+}
+
+</script>
+</head>
+
+<body onLoad="reset(); return true;">
+
+
+<h1>Click on eggs repeatedly to hatch as many Dinos</h1>
+
+<div>
+<img id = "egg1" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg2" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg3" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg4" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg5" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg6" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg7" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+<img id = "egg8" src="egg1.png" width="114" height="100" onclick="clickEgg(this.id);" />
+
+</div>
+
+</body>
+</html>
