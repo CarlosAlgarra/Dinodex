@@ -172,7 +172,6 @@ function leaderboards(){
 		var currentUser = loginstatus.innerHTML;
 		var spellArray= new Array();
 		var memArray= new Array();
-		var whackArray= new Array();
 		var templeArray= new Array();
 		
 		
@@ -180,22 +179,29 @@ function leaderboards(){
 			for(var i = 0; i<data.length; i++){
 				var user=data[i].userid;
 				var spell=data[i].spellScore;
-				console.log(user);
-				console.log(spell);
 				var mem=data[i].memScore;
-				var whack=data[i].whackScore;
 				var temple=data[i].templeScore;
 				spellArray.push([user,spell]);
 				memArray.push([user,mem]);
-				whackArray.push([user,whack]);
 				templeArray.push([user,temple]);	
 			}
-			
-		spellArray.sort(compareSecondColumn);
-		memArray.sort(compareSecondColumn);
-		whackArray.sort(compareSecondColumn);
-		templeArray.sort(compareSecondColumn);
 		console.log(spellArray);
+		console.log(memArray);
+		console.log(templeArray);	
+		spellArray=spellArray.sort(function(a,b){
+				return b[1]-a[1];
+		});
+		memArray=memArray.sort(function(a,b){
+				return a[1]-b[1];
+		});
+		templeArray=templeArray.sort(function(a,b){
+				return b[1]-a[1];
+		});
+/*	console.log(spellArray);
+		console.log(memArray);
+		console.log(templeArray);*/
+		
+		
 		var sp;
 		var mg;
 		var wk;
@@ -203,14 +209,12 @@ function leaderboards(){
 		if(countclicks!=1){
 			document.getElementById('spellHi').innerHTML='';
 			document.getElementById('memHi').innerHTML ='';
-			document.getElementById('whackHi').innerHTML='';
 			document.getElementById('templeHi').innerHTML='';
 		
 		}
 		for (var i = 0; i < 3; i++) {
 			document.getElementById('spellHi').innerHTML += '<li>' + spellArray[i][0] +' '+ spellArray[i][1] + '</li>';
 			document.getElementById('memHi').innerHTML += '<li>' + memArray[i][0] +' '+ memArray[i][1] + '</li>';
-			document.getElementById('whackHi').innerHTML += '<li>' + whackArray[i][0] +' '+ whackArray[i][1] + '</li>';
 			document.getElementById('templeHi').innerHTML += '<li>' + templeArray[i][0] +' '+ templeArray[i][1] + '</li>';	
 		}
 
@@ -383,10 +387,7 @@ function checkHas(array, num){
 <h2> Memory Leaderboard<h2>
 <ul id = "memHi">
 </ul>
-<h2> Whack a Dino Leaderboard<h2>
-<ul id = "whackHi">
-</ul>
-<h2> Templerun Leaderboard<h2>
+<h2> Hatch-a-Dino Leaderboard<h2>
 <ul id = "templeHi">
 </ul>
 </div>
@@ -516,7 +517,6 @@ function showSheet(dinoId){
 	coords=new Array();
 	id_name=new Array();
 	din=dinos;
-	console.log(dinos);
 	var ids;
 	var name;
 	 for(var i=0; i<dinos.length; i++) {
@@ -685,6 +685,13 @@ $("#logging").click(function(){
 				$("#mapid").css({"display": "block"});
 				mymap.invalidateSize(true)
 				loginstatus.innerHTML= id;
+				
+																$.post('/login',
+											{
+											userid: id,
+											password: pass
+											});
+				
 				alert("Successful Login");}
 		else{
 			alert("nope")}

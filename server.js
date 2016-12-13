@@ -135,7 +135,7 @@ app.post('/login', function (req, res, next) {
 	  }
 
       session.id = userid1;
-	  console.log('user '+userid1+' loggedin')
+	  console.log('user '+session.id+' loggedin')
 	     res.status(202)
 
 		
@@ -168,7 +168,8 @@ app.post('/updateDino', (req,res) =>{
 */
 
 app.post('/updateScore', (req,res) =>{
-	
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!" + session.id)
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!" + session.dino)
 		db.collection('users').update({userid: session.id}, {$push: {dinos: session.dino}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
@@ -207,7 +208,20 @@ else if (req.body.gameName == "memGame"){
 });}
 
 else if (req.body.gameName == "hangGame"){
-	db.collection('users').update({userid: session.id}, {$set: {memScore: req.body.newScore}}, function (err, numUpdated) {
+	db.collection('users').update({userid: session.id}, {$set: {hangScore: req.body.newScore}}, function (err, numUpdated) {
+  if (err) {
+    console.log(err);
+  } else if (numUpdated) {
+    console.log('Updated Successfully %d document(s).', numUpdated);
+  } else {
+    console.log('No document found with defined "find" criteria!');
+  }
+ 
+ 
+});}
+
+else if (req.body.gameName == "eggGame"){
+	db.collection('users').update({userid: session.id}, {$set: {templeScore: req.body.newScore}}, function (err, numUpdated) {
   if (err) {
     console.log(err);
   } else if (numUpdated) {

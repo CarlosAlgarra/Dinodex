@@ -22,13 +22,23 @@ hr {
 	display: none;
 }
 
-#blogpost{
-	display: none;
-}
-
 #barticle{
 	display: none;
+	background-color: #800000;
+	color: black;
+	width: 1000px;
+	margin: auto;
+	padding: 10px;
+	height: 1000px;
 }
 #blogback{
 	display: none;
+}
+#blogmain{
+		background-color: #800000;
+		color: black;
+		width: 500px;
+		margin: auto;
+		padding: 10px;
+	
 }
